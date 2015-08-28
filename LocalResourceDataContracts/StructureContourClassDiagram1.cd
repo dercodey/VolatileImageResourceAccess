@@ -1,0 +1,171 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="NameAndType">
+  <Class Name="Elekta.DataContracts.ImageDataContract">
+    <Position X="4.5" Y="1.75" Width="2.75" />
+    <AssociationLine Name="PixelBuffer" Type="Elekta.DataContracts.SharedBuffer" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="7.25" Y="2.625" />
+        <Point X="8.562" Y="2.625" />
+        <Point X="8.562" Y="6" />
+      </Path>
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="0.227" Y="0.285" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <AssociationLine Name="PixelSpacing" Type="Elekta.DataContracts.VoxelSize" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="4.875" Y="4.2" />
+        <Point X="4.875" Y="5.469" />
+        <Point X="3" Y="5.469" />
+      </Path>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>EgAAAAAAVQAAAAAAAAAAAEAAIAABAAEAAIAQAAAAAAA=</HashCode>
+      <FileName>ImageDataContract.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="PixelBuffer" />
+      <Property Name="ImageOrientation" />
+      <Property Name="ImagePosition" />
+      <Property Name="PixelSpacing" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="Elekta.DataContracts.ContourDataContract">
+    <Position X="8.75" Y="10" Width="2.25" />
+    <AssociationLine Name="VertexBuffer" Type="Elekta.DataContracts.SharedBuffer">
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="-1.165" Y="0.085" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAAAAAAAAEAAAABAAAAAAAAAAAAEAA=</HashCode>
+      <FileName>ContourDataContract.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="VertexBuffer" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="Elekta.DataContracts.SharedBuffer">
+    <Position X="8.25" Y="6" Width="3.25" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AIACAAAAACAAAAAAAAAACAAAgAAAAAIQAAAAACAIAAI=</HashCode>
+      <FileName>SharedBuffer.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Elekta.DataContracts.StructureDataContract">
+    <Position X="12.75" Y="2.75" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AgAGAAAAAQAAAAAAAAAAAAAgIAABAAAAABAAAAAAAAA=</HashCode>
+      <FileName>StructureDataContract.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Id" />
+    </ShowAsAssociation>
+    <ShowAsCollectionAssociation>
+      <Property Name="Contours" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="Elekta.DataContracts.SurfaceMeshDataContract">
+    <Position X="9" Y="3" Width="2.25" />
+    <AssociationLine Name="VertexBuffer" Type="Elekta.DataContracts.SharedBuffer">
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="-1.213" Y="0.212" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <AssociationLine Name="NormalBuffer" Type="Elekta.DataContracts.SharedBuffer">
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="0.123" Y="0.161" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <AssociationLine Name="TriangleIndexBuffer" Type="Elekta.DataContracts.SharedBuffer">
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="0.027" Y="0.63" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AACCAAAEAAAAAIAAABAAAAEAAAABAAAAAAAAAAAAEAA=</HashCode>
+      <FileName>SurfaceMeshDataContract.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="RelatedStructureId" />
+      <Property Name="VertexBuffer" />
+      <Property Name="NormalBuffer" />
+      <Property Name="TriangleIndexBuffer" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="Elekta.DataContracts.UniformImageVolumeDataContract">
+    <Position X="3.75" Y="8.5" Width="3" />
+    <AssociationLine Name="VoxelSpacing" Type="Elekta.DataContracts.VoxelSize" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="4.398" Y="8.5" />
+        <Point X="4.398" Y="6.188" />
+        <Point X="3" Y="6.188" />
+      </Path>
+    </AssociationLine>
+    <AssociationLine Name="ImagePosition" Type="Elekta.DataContracts.ImagePosition">
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="0.034" Y="0.084" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <AssociationLine Name="Isocenter" Type="Elekta.DataContracts.ImagePosition">
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="-0.951" Y="0.06" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>EgAAAAAAFQAAAAAAAAAAQMAAIAABAAAgAIAAAAACABA=</HashCode>
+      <FileName>UniformImageVolumeDataContract.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="VoxelSpacing" />
+      <Property Name="ImagePosition" />
+      <Property Name="VolumeOrientation" />
+      <Property Name="Isocenter" />
+      <Property Name="PixelBuffer" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="Elekta.DataContracts.VolumeOrientation">
+    <Position X="0.75" Y="8.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAABAAAAAAAAAAgAgAAAAAAAAAAA=</HashCode>
+      <FileName>VolumeOrientation.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Elekta.DataContracts.ImagePosition">
+    <Position X="5.25" Y="6" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAYAE=</HashCode>
+      <FileName>ImagePosition.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Elekta.DataContracts.VoxelSize">
+    <Position X="1.5" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAYAE=</HashCode>
+      <FileName>VoxelSize.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Elekta.DataContracts.ImageOrientation">
+    <Position X="1.5" Y="2.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAABAAAAAAAAAAgAAAAAAAAAAAAA=</HashCode>
+      <FileName>ImageOrientation.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Struct Name="Elekta.DataContracts.TriangleIndex">
+    <Position X="12.5" Y="7" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAA=</HashCode>
+      <FileName>SurfaceMeshDataContract.cs</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="System.Guid" Collapsed="true">
+    <Position X="9.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" />
+  </Struct>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

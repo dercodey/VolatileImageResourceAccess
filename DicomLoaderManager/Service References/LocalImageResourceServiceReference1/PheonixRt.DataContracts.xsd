@@ -1,0 +1,94 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:ser="http://schemas.microsoft.com/2003/10/Serialization/" xmlns:tns="http://schemas.datacontract.org/2004/07/PheonixRt.DataContracts" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/PheonixRt.DataContracts" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+  <xs:complexType name="ImageDataContract">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="FrameOfReferenceUID" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Height" type="xs:int" />
+      <xs:element minOccurs="0" name="ImageId" type="ser:guid" />
+      <xs:element minOccurs="0" name="ImageOrientation" nillable="true" type="tns:ImageOrientation" />
+      <xs:element minOccurs="0" name="ImagePosition" nillable="true" type="tns:ImagePosition" />
+      <xs:element minOccurs="0" name="Label" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="PatientId" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="PixelBuffer" nillable="true" type="tns:SharedBuffer" />
+      <xs:element minOccurs="0" name="PixelSpacing" nillable="true" type="tns:VoxelSize" />
+      <xs:element minOccurs="0" name="SOPInstanceUID" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="SeriesInstanceUID" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Width" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ImageDataContract" nillable="true" type="tns:ImageDataContract" />
+  <xs:complexType name="ImageOrientation">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Column" nillable="true" type="tns:DirectionCosine" />
+      <xs:element minOccurs="0" name="Row" nillable="true" type="tns:DirectionCosine" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ImageOrientation" nillable="true" type="tns:ImageOrientation" />
+  <xs:complexType name="DirectionCosine">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="X" type="xs:float" />
+      <xs:element minOccurs="0" name="Y" type="xs:float" />
+      <xs:element minOccurs="0" name="Z" type="xs:float" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="DirectionCosine" nillable="true" type="tns:DirectionCosine" />
+  <xs:complexType name="ImagePosition">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="X" type="xs:float" />
+      <xs:element minOccurs="0" name="Y" type="xs:float" />
+      <xs:element minOccurs="0" name="Z" type="xs:float" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ImagePosition" nillable="true" type="tns:ImagePosition" />
+  <xs:complexType name="SharedBuffer">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ElementCount" type="xs:long" />
+      <xs:element minOccurs="0" name="ElementSize" type="xs:int" />
+      <xs:element minOccurs="0" name="ElementTypeString" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Id" type="ser:guid" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="SharedBuffer" nillable="true" type="tns:SharedBuffer" />
+  <xs:complexType name="VoxelSize">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="X" type="xs:float" />
+      <xs:element minOccurs="0" name="Y" type="xs:float" />
+      <xs:element minOccurs="0" name="Z" type="xs:float" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="VoxelSize" nillable="true" type="tns:VoxelSize" />
+  <xs:complexType name="UniformImageVolumeDataContract">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Depth" type="xs:int" />
+      <xs:element minOccurs="0" name="FrameOfReferenceUID" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Height" type="xs:int" />
+      <xs:element minOccurs="0" name="Identity" nillable="true" type="tns:VolumeIdentity" />
+      <xs:element minOccurs="0" name="ImagePosition" nillable="true" type="tns:ImagePosition" />
+      <xs:element minOccurs="0" name="Isocenter" nillable="true" type="tns:ImagePosition" />
+      <xs:element minOccurs="0" name="PixelBuffer" nillable="true" type="tns:SharedBuffer" />
+      <xs:element minOccurs="0" name="VolumeOrientation" nillable="true" type="tns:VolumeOrientation" />
+      <xs:element minOccurs="0" name="VoxelSpacing" nillable="true" type="tns:VoxelSize" />
+      <xs:element minOccurs="0" name="Width" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="UniformImageVolumeDataContract" nillable="true" type="tns:UniformImageVolumeDataContract" />
+  <xs:complexType name="VolumeIdentity">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Guid" type="ser:guid" />
+      <xs:element minOccurs="0" name="Label" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="PatientId" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="SOPInstanceUID" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="SeriesInstanceUID" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="VolumeIdentity" nillable="true" type="tns:VolumeIdentity" />
+  <xs:complexType name="VolumeOrientation">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Column" nillable="true" type="tns:DirectionCosine" />
+      <xs:element minOccurs="0" name="Depth" nillable="true" type="tns:DirectionCosine" />
+      <xs:element minOccurs="0" name="Row" nillable="true" type="tns:DirectionCosine" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="VolumeOrientation" nillable="true" type="tns:VolumeOrientation" />
+</xs:schema>

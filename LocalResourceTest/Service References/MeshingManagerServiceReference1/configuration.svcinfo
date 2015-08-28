@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<configurationSnapshot xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="urn:schemas-microsoft-com:xml-wcfconfigurationsnapshot">
+  <behaviors />
+  <bindings>
+    <binding digest="System.ServiceModel.Configuration.NetMsmqBindingElement, System.ServiceModel, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089:&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-16&quot;?&gt;&lt;Data name=&quot;NetMsmqBinding_IMeshingManager&quot;&gt;&lt;security mode=&quot;None&quot; /&gt;&lt;/Data&gt;" bindingType="netMsmqBinding" name="NetMsmqBinding_IMeshingManager" />
+  </bindings>
+  <endpoints>
+    <endpoint normalizedDigest="&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-16&quot;?&gt;&lt;Data address=&quot;net.msmq://localhost/private/MeshingQueue&quot; binding=&quot;netMsmqBinding&quot; bindingConfiguration=&quot;NetMsmqBinding_IMeshingManager&quot; contract=&quot;MeshingManagerServiceReference1.IMeshingManager&quot; name=&quot;NetMsmqBinding_IMeshingManager&quot;&gt;&lt;identity&gt;&lt;dns value=&quot;localhost&quot; /&gt;&lt;/identity&gt;&lt;/Data&gt;" digest="&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-16&quot;?&gt;&lt;Data address=&quot;net.msmq://localhost/private/MeshingQueue&quot; binding=&quot;netMsmqBinding&quot; bindingConfiguration=&quot;NetMsmqBinding_IMeshingManager&quot; contract=&quot;MeshingManagerServiceReference1.IMeshingManager&quot; name=&quot;NetMsmqBinding_IMeshingManager&quot;&gt;&lt;identity&gt;&lt;dns value=&quot;localhost&quot; /&gt;&lt;/identity&gt;&lt;/Data&gt;" contractName="MeshingManagerServiceReference1.IMeshingManager" name="NetMsmqBinding_IMeshingManager" />
+  </endpoints>
+</configurationSnapshot>

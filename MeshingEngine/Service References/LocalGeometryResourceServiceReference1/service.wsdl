@@ -1,0 +1,271 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy" xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:tns="http://tempuri.org/" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="LocalGeometryResourceManager" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsp:Policy wsu:Id="NetNamedPipeBinding_ILocalGeometryResourceManager_policy">
+    <wsp:ExactlyOne>
+      <wsp:All>
+        <msb:BinaryEncoding xmlns:msb="http://schemas.microsoft.com/ws/06/2004/mspolicy/netbinary1">
+        </msb:BinaryEncoding>
+        <sp:TransportBinding xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+          <wsp:Policy>
+            <sp:TransportToken>
+              <wsp:Policy>
+                <msf:WindowsTransportSecurity xmlns:msf="http://schemas.microsoft.com/ws/2006/05/framing/policy">
+                  <msf:ProtectionLevel>EncryptAndSign</msf:ProtectionLevel>
+                </msf:WindowsTransportSecurity>
+              </wsp:Policy>
+            </sp:TransportToken>
+            <sp:AlgorithmSuite>
+              <wsp:Policy>
+                <sp:Basic256>
+                </sp:Basic256>
+              </wsp:Policy>
+            </sp:AlgorithmSuite>
+            <sp:Layout>
+              <wsp:Policy>
+                <sp:Strict>
+                </sp:Strict>
+              </wsp:Policy>
+            </sp:Layout>
+          </wsp:Policy>
+        </sp:TransportBinding>
+        <wsaw:UsingAddressing>
+        </wsaw:UsingAddressing>
+      </wsp:All>
+    </wsp:ExactlyOne>
+  </wsp:Policy>
+  <wsdl:types>
+    <xsd:schema targetNamespace="http://tempuri.org/Imports">
+      <xsd:import namespace="http://tempuri.org/" />
+      <xsd:import namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+      <xsd:import namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+      <xsd:import namespace="http://schemas.datacontract.org/2004/07/PheonixRt.DataContracts" />
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="ILocalGeometryResourceManager_GetStructureResourceIds_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetStructureResourceIds" />
+  </wsdl:message>
+  <wsdl:message name="ILocalGeometryResourceManager_GetStructureResourceIds_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetStructureResourceIdsResponse" />
+  </wsdl:message>
+  <wsdl:message name="ILocalGeometryResourceManager_GetStructuresInFrameOfReferenceUid_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetStructuresInFrameOfReferenceUid" />
+  </wsdl:message>
+  <wsdl:message name="ILocalGeometryResourceManager_GetStructuresInFrameOfReferenceUid_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetStructuresInFrameOfReferenceUidResponse" />
+  </wsdl:message>
+  <wsdl:message name="ILocalGeometryResourceManager_GetStructure_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetStructure" />
+  </wsdl:message>
+  <wsdl:message name="ILocalGeometryResourceManager_GetStructure_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetStructureResponse" />
+  </wsdl:message>
+  <wsdl:message name="ILocalGeometryResourceManager_AddStructure_InputMessage">
+    <wsdl:part name="parameters" element="tns:AddStructure" />
+  </wsdl:message>
+  <wsdl:message name="ILocalGeometryResourceManager_AddStructure_OutputMessage">
+    <wsdl:part name="parameters" element="tns:AddStructureResponse" />
+  </wsdl:message>
+  <wsdl:message name="ILocalGeometryResourceManager_RemoveStructure_InputMessage">
+    <wsdl:part name="parameters" element="tns:RemoveStructure" />
+  </wsdl:message>
+  <wsdl:message name="ILocalGeometryResourceManager_RemoveStructure_OutputMessage">
+    <wsdl:part name="parameters" element="tns:RemoveStructureResponse" />
+  </wsdl:message>
+  <wsdl:message name="ILocalGeometryResourceManager_AddPolygon_InputMessage">
+    <wsdl:part name="parameters" element="tns:AddPolygon" />
+  </wsdl:message>
+  <wsdl:message name="ILocalGeometryResourceManager_AddPolygon_OutputMessage">
+    <wsdl:part name="parameters" element="tns:AddPolygonResponse" />
+  </wsdl:message>
+  <wsdl:message name="ILocalGeometryResourceManager_GetPolygon_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetPolygon" />
+  </wsdl:message>
+  <wsdl:message name="ILocalGeometryResourceManager_GetPolygon_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetPolygonResponse" />
+  </wsdl:message>
+  <wsdl:message name="ILocalGeometryResourceManager_GetSurfaceMesh_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetSurfaceMesh" />
+  </wsdl:message>
+  <wsdl:message name="ILocalGeometryResourceManager_GetSurfaceMesh_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetSurfaceMeshResponse" />
+  </wsdl:message>
+  <wsdl:message name="ILocalGeometryResourceManager_GetSurfaceMeshByRelatedStructureId_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetSurfaceMeshByRelatedStructureId" />
+  </wsdl:message>
+  <wsdl:message name="ILocalGeometryResourceManager_GetSurfaceMeshByRelatedStructureId_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetSurfaceMeshByRelatedStructureIdResponse" />
+  </wsdl:message>
+  <wsdl:message name="ILocalGeometryResourceManager_AddSurfaceMesh_InputMessage">
+    <wsdl:part name="parameters" element="tns:AddSurfaceMesh" />
+  </wsdl:message>
+  <wsdl:message name="ILocalGeometryResourceManager_AddSurfaceMesh_OutputMessage">
+    <wsdl:part name="parameters" element="tns:AddSurfaceMeshResponse" />
+  </wsdl:message>
+  <wsdl:message name="ILocalGeometryResourceManager_RemoveSurfaceMesh_InputMessage">
+    <wsdl:part name="parameters" element="tns:RemoveSurfaceMesh" />
+  </wsdl:message>
+  <wsdl:message name="ILocalGeometryResourceManager_RemoveSurfaceMesh_OutputMessage">
+    <wsdl:part name="parameters" element="tns:RemoveSurfaceMeshResponse" />
+  </wsdl:message>
+  <wsdl:portType name="ILocalGeometryResourceManager">
+    <wsdl:operation name="GetStructureResourceIds">
+      <wsdl:input wsaw:Action="http://tempuri.org/ILocalGeometryResourceManager/GetStructureResourceIds" message="tns:ILocalGeometryResourceManager_GetStructureResourceIds_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ILocalGeometryResourceManager/GetStructureResourceIdsResponse" message="tns:ILocalGeometryResourceManager_GetStructureResourceIds_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetStructuresInFrameOfReferenceUid">
+      <wsdl:input wsaw:Action="http://tempuri.org/ILocalGeometryResourceManager/GetStructuresInFrameOfReferenceUid" message="tns:ILocalGeometryResourceManager_GetStructuresInFrameOfReferenceUid_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ILocalGeometryResourceManager/GetStructuresInFrameOfReferenceUidResponse" message="tns:ILocalGeometryResourceManager_GetStructuresInFrameOfReferenceUid_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetStructure">
+      <wsdl:input wsaw:Action="http://tempuri.org/ILocalGeometryResourceManager/GetStructure" message="tns:ILocalGeometryResourceManager_GetStructure_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ILocalGeometryResourceManager/GetStructureResponse" message="tns:ILocalGeometryResourceManager_GetStructure_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="AddStructure">
+      <wsdl:input wsaw:Action="http://tempuri.org/ILocalGeometryResourceManager/AddStructure" message="tns:ILocalGeometryResourceManager_AddStructure_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ILocalGeometryResourceManager/AddStructureResponse" message="tns:ILocalGeometryResourceManager_AddStructure_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="RemoveStructure">
+      <wsdl:input wsaw:Action="http://tempuri.org/ILocalGeometryResourceManager/RemoveStructure" message="tns:ILocalGeometryResourceManager_RemoveStructure_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ILocalGeometryResourceManager/RemoveStructureResponse" message="tns:ILocalGeometryResourceManager_RemoveStructure_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="AddPolygon">
+      <wsdl:input wsaw:Action="http://tempuri.org/ILocalGeometryResourceManager/AddPolygon" message="tns:ILocalGeometryResourceManager_AddPolygon_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ILocalGeometryResourceManager/AddPolygonResponse" message="tns:ILocalGeometryResourceManager_AddPolygon_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetPolygon">
+      <wsdl:input wsaw:Action="http://tempuri.org/ILocalGeometryResourceManager/GetPolygon" message="tns:ILocalGeometryResourceManager_GetPolygon_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ILocalGeometryResourceManager/GetPolygonResponse" message="tns:ILocalGeometryResourceManager_GetPolygon_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetSurfaceMesh">
+      <wsdl:input wsaw:Action="http://tempuri.org/ILocalGeometryResourceManager/GetSurfaceMesh" message="tns:ILocalGeometryResourceManager_GetSurfaceMesh_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ILocalGeometryResourceManager/GetSurfaceMeshResponse" message="tns:ILocalGeometryResourceManager_GetSurfaceMesh_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetSurfaceMeshByRelatedStructureId">
+      <wsdl:input wsaw:Action="http://tempuri.org/ILocalGeometryResourceManager/GetSurfaceMeshByRelatedStructureId" message="tns:ILocalGeometryResourceManager_GetSurfaceMeshByRelatedStructureId_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ILocalGeometryResourceManager/GetSurfaceMeshByRelatedStructureIdResponse" message="tns:ILocalGeometryResourceManager_GetSurfaceMeshByRelatedStructureId_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="AddSurfaceMesh">
+      <wsdl:input wsaw:Action="http://tempuri.org/ILocalGeometryResourceManager/AddSurfaceMesh" message="tns:ILocalGeometryResourceManager_AddSurfaceMesh_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ILocalGeometryResourceManager/AddSurfaceMeshResponse" message="tns:ILocalGeometryResourceManager_AddSurfaceMesh_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="RemoveSurfaceMesh">
+      <wsdl:input wsaw:Action="http://tempuri.org/ILocalGeometryResourceManager/RemoveSurfaceMesh" message="tns:ILocalGeometryResourceManager_RemoveSurfaceMesh_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ILocalGeometryResourceManager/RemoveSurfaceMeshResponse" message="tns:ILocalGeometryResourceManager_RemoveSurfaceMesh_OutputMessage" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="NetNamedPipeBinding_ILocalGeometryResourceManager" type="tns:ILocalGeometryResourceManager">
+    <wsp:PolicyReference URI="#NetNamedPipeBinding_ILocalGeometryResourceManager_policy">
+    </wsp:PolicyReference>
+    <soap12:binding transport="http://schemas.microsoft.com/soap/named-pipe" />
+    <wsdl:operation name="GetStructureResourceIds">
+      <soap12:operation soapAction="http://tempuri.org/ILocalGeometryResourceManager/GetStructureResourceIds" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetStructuresInFrameOfReferenceUid">
+      <soap12:operation soapAction="http://tempuri.org/ILocalGeometryResourceManager/GetStructuresInFrameOfReferenceUid" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetStructure">
+      <soap12:operation soapAction="http://tempuri.org/ILocalGeometryResourceManager/GetStructure" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AddStructure">
+      <soap12:operation soapAction="http://tempuri.org/ILocalGeometryResourceManager/AddStructure" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RemoveStructure">
+      <soap12:operation soapAction="http://tempuri.org/ILocalGeometryResourceManager/RemoveStructure" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AddPolygon">
+      <soap12:operation soapAction="http://tempuri.org/ILocalGeometryResourceManager/AddPolygon" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPolygon">
+      <soap12:operation soapAction="http://tempuri.org/ILocalGeometryResourceManager/GetPolygon" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetSurfaceMesh">
+      <soap12:operation soapAction="http://tempuri.org/ILocalGeometryResourceManager/GetSurfaceMesh" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetSurfaceMeshByRelatedStructureId">
+      <soap12:operation soapAction="http://tempuri.org/ILocalGeometryResourceManager/GetSurfaceMeshByRelatedStructureId" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AddSurfaceMesh">
+      <soap12:operation soapAction="http://tempuri.org/ILocalGeometryResourceManager/AddSurfaceMesh" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RemoveSurfaceMesh">
+      <soap12:operation soapAction="http://tempuri.org/ILocalGeometryResourceManager/RemoveSurfaceMesh" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="LocalGeometryResourceManager">
+    <wsdl:port name="NetNamedPipeBinding_ILocalGeometryResourceManager" binding="tns:NetNamedPipeBinding_ILocalGeometryResourceManager">
+      <soap12:address location="net.pipe://localhost/LocalResourceManager/LocalGeometryResourceManager1" />
+      <wsa10:EndpointReference>
+        <wsa10:Address>net.pipe://localhost/LocalResourceManager/LocalGeometryResourceManager1</wsa10:Address>
+        <Identity xmlns="http://schemas.xmlsoap.org/ws/2006/02/addressingidentity">
+          <Upn>DEREKSPEEDPC\Derek</Upn>
+        </Identity>
+      </wsa10:EndpointReference>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

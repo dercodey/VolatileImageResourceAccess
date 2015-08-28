@@ -1,0 +1,116 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{B27A94CE-28C2-47F6-9696-BDB294FA3739}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>LocalResourceTestServiceHost</RootNamespace>
+    <AssemblyName>LocalResourceTestServiceHost</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
+    <RestorePackages>true</RestorePackages>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Messaging" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.ServiceModel.Activation" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DicomLoaderManager\DicomLoaderManager.csproj">
+      <Project>{8f640709-5407-42c0-8db3-de1ad3b8a232}</Project>
+      <Name>DicomLoaderManager</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\LocalResourceDataContracts\LocalResourceDataContracts.csproj">
+      <Project>{9d6c100b-5ced-4fe0-8bae-7bbc21905dcc}</Project>
+      <Name>LocalResourceDataContracts</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\LocalResourceManager\LocalResourceManager.csproj">
+      <Project>{925cee59-7592-475b-981b-f94a042403a6}</Project>
+      <Name>LocalResourceManager</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MeshingEngine\MeshingEngineService.csproj">
+      <Project>{11054e9b-3db3-4466-8760-ab61ac07a377}</Project>
+      <Name>MeshingEngineService</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MeshingManager\MeshingManagerService.csproj">
+      <Project>{a1dabb37-7710-4500-accc-a76a2f446ea8}</Project>
+      <Name>MeshingManagerService</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MeshingServiceContracts\MeshingServiceContracts.csproj">
+      <Project>{e345589a-8692-44e3-9f11-d9f06c936367}</Project>
+      <Name>MeshingServiceContracts</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MprGenerationEngine\MprGenerationEngine.csproj">
+      <Project>{f5ab22ce-cd79-4262-b831-8a2fd34b8b41}</Project>
+      <Name>MprGenerationEngine</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ResampleDataContracts\ResampleServiceContracts.csproj">
+      <Project>{104eba66-5b11-4a59-9fa5-efd5e9c1cbae}</Project>
+      <Name>ResampleServiceContracts</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ResampleEngine\ResampleEngineService.csproj">
+      <Project>{cb77f459-f961-46ac-918a-dd9b81afabe1}</Project>
+      <Name>ResampleEngineService</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ResampleManager\ResampleManagerService.csproj">
+      <Project>{e841f73c-fade-4ede-9816-470af584e192}</Project>
+      <Name>ResampleManagerService</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('$(SolutionDir)\.nuget\NuGet.targets')" Text="$([System.String]::Format('$(ErrorText)', '$(SolutionDir)\.nuget\NuGet.targets'))" />
+  </Target>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="3a4caff9-2e21-49e1-a6ee-51dee8bdc51c" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings>
+      <CollectionMapping TypeName="System.Collections.Generic.List`1" Category="List" />
+    </CollectionMappings>
+    <GenerateSerializableTypes>true</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>true</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="net.pipe://localhost/LocalResourceManager/LocalImageResourceManager1/mex" Protocol="mex" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="service.wsdl" MetadataType="Wsdl" ID="3084abde-c07a-4d78-85d3-bfb26507f16f" SourceId="1" SourceUrl="net.pipe://localhost/LocalResourceManager/LocalImageResourceManager1/mex" />
+    <MetadataFile FileName="service.xsd" MetadataType="Schema" ID="84f5d910-f4ec-481f-b6b3-6947112d385c" SourceId="1" SourceUrl="net.pipe://localhost/LocalResourceManager/LocalImageResourceManager1/mex" />
+    <MetadataFile FileName="service1.xsd" MetadataType="Schema" ID="c51d40b7-d63f-4938-8bd6-ea161971ea9c" SourceId="1" SourceUrl="net.pipe://localhost/LocalResourceManager/LocalImageResourceManager1/mex" />
+    <MetadataFile FileName="Arrays.xsd" MetadataType="Schema" ID="8cf9e874-e4c5-4f34-bb07-9435d77b29e3" SourceId="1" SourceUrl="net.pipe://localhost/LocalResourceManager/LocalImageResourceManager1/mex" />
+    <MetadataFile FileName="PheonixRt.DataContracts.xsd" MetadataType="Schema" ID="3305753f-fa6b-4faf-beb5-94ed1d93ec61" SourceId="1" SourceUrl="net.pipe://localhost/LocalResourceManager/LocalImageResourceManager1/mex" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>

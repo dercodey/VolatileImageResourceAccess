@@ -1,0 +1,35 @@
+﻿<UserControl x:Class="PheonixRt.Mvvm.MprImageView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <Border ClipToBounds="True" Grid.Row="0" Margin="10">
+            <Image x:Name="mprImage" 
+                   Source="{Binding MprImageSource}"
+                   RenderTransformOrigin="0.5,0.5"
+                   RenderTransform="{Binding ImageElementRenderTransform}" />
+        </Border>
+        
+        <TextBlock x:Name="lapsed" Grid.Row="0" 
+                   Text="{Binding LapsedText}" 
+                   Width="100" Height="18"                    
+                   HorizontalAlignment="Center" 
+                   VerticalAlignment="Bottom"
+                   TextAlignment="Center"
+                   Foreground="AliceBlue"
+                   Background="#66483D8B"/>
+
+        <Slider x:Name="sliceSlider" Grid.Row="1"
+                Value="{Binding SlicePosition}"
+                Height="20" Margin="10" 
+                Maximum="{Binding MaxSlicePosition}"/>
+    </Grid>
+</UserControl>

@@ -1,0 +1,11 @@
+﻿<Application x:Class="PheonixRt.Mvvm.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:sys="clr-namespace:System;assembly=mscorlib"
+             StartupUri="MainWindow.xaml">
+    <Application.Resources>
+        <ResourceDictionary>
+            <sys:String x:Key="DicomScanDirectory">C:\RD\EDB_Images\MOSAIQ_DATA\PRACTICE\BDS</sys:String>
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>

@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:ser="http://schemas.microsoft.com/2003/10/Serialization/" xmlns:tns="http://schemas.datacontract.org/2004/07/PheonixRt.ResampleServiceContracts" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/PheonixRt.ResampleServiceContracts" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+  <xs:complexType name="ImageVolumeResampleRequest">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="SeriesInstanceUID" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ImageVolumeResampleRequest" nillable="true" type="tns:ImageVolumeResampleRequest" />
+  <xs:complexType name="ImageVolumeResampleResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ResampledImageVolumeGuid" type="ser:guid" />
+      <xs:element minOccurs="0" name="SeriesInstanceUID" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ImageVolumeResampleResponse" nillable="true" type="tns:ImageVolumeResampleResponse" />
+</xs:schema>

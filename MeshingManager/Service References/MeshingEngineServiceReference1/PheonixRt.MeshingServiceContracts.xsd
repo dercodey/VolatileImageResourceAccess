@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:ser="http://schemas.microsoft.com/2003/10/Serialization/" xmlns:tns="http://schemas.datacontract.org/2004/07/PheonixRt.MeshingServiceContracts" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/PheonixRt.MeshingServiceContracts" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+  <xs:import namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+  <xs:complexType name="MeshingRequest">
+    <xs:sequence>
+      <xs:element xmlns:q1="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="ContourGuids" nillable="true" type="q1:ArrayOfguid" />
+      <xs:element minOccurs="0" name="StructureGuid" type="ser:guid" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="MeshingRequest" nillable="true" type="tns:MeshingRequest" />
+  <xs:complexType name="MeshingResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="StructureGuid" type="ser:guid" />
+      <xs:element minOccurs="0" name="SurfaceMeshGuid" type="ser:guid" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="MeshingResponse" nillable="true" type="tns:MeshingResponse" />
+</xs:schema>
