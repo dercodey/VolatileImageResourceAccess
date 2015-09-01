@@ -80,9 +80,9 @@
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
     <Compile Include="Services\DicomImportPreprocessCoordinator.cs" />
-    <Compile Include="Services\ImageDisplayManager.cs" />
+    <Compile Include="Services\ImageSelectionManager.cs" />
     <Compile Include="Services\DicomLoaderManagerHelper.cs" />
-    <Compile Include="Services\MprGenerationHelper.cs" />
+    <Compile Include="Services\ImageRenderManagerHelper.cs" />
     <Compile Include="ViewModels\BindableBase.cs" />
     <Compile Include="ViewModels\PropertySupport.cs" />
     <Compile Include="Views\MprImageView.xaml.cs">
@@ -213,7 +213,7 @@
     <None Include="Service References\MeshingManagerServiceReference1\service1.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\MprGenerationEngineServiceReference1\MprGenerationEngine.xsd">
+    <None Include="Service References\MprGenerationEngineServiceReference1\MprGenerationContracts.xsd">
       <SubType>Designer</SubType>
     </None>
     <None Include="Service References\MprGenerationEngineServiceReference1\service.wsdl" />
@@ -258,6 +258,10 @@
     <ProjectReference Include="..\MeshingServiceContracts\MeshingServiceContracts.csproj">
       <Project>{e345589a-8692-44e3-9f11-d9f06c936367}</Project>
       <Name>MeshingServiceContracts</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MprGenerationContracts\MprGenerationContracts.csproj">
+      <Project>{11057cc7-add1-4999-b3d3-6fff27816077}</Project>
+      <Name>MprGenerationContracts</Name>
     </ProjectReference>
     <ProjectReference Include="..\ResampleDataContracts\ResampleServiceContracts.csproj">
       <Project>{104eba66-5b11-4a59-9fa5-efd5e9c1cbae}</Project>

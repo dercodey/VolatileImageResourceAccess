@@ -34,7 +34,7 @@ namespace LocalResourceTestServiceHost
             StartHost<ResampleManager>();
             StartHost<MeshingEngine>();
             StartHost<MeshingManager>();
-            StartHost<MprGenerationEngineService1>();
+            StartHost<MprGenerationEngineService>();
 
             foreach (var host in _hosts)
             {

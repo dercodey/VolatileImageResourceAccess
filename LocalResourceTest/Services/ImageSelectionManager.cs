@@ -18,9 +18,12 @@ using PheonixRt.Mvvm.Services;
 
 namespace PheonixRt.Mvvm
 {
-    public class ImageDisplayManager
+    /// <summary>
+    /// manager to handle display and selection of multiple images
+    /// </summary>
+    public class ImageSelectionManager
     {
-        public ImageDisplayManager()
+        public ImageSelectionManager()
         {
             ICollectionView pgv = CollectionViewSource.GetDefaultView(_patientGroups);
             pgv.SortDescriptions.Add(new SortDescription("PatientId", ListSortDirection.Ascending));
@@ -40,6 +43,12 @@ namespace PheonixRt.Mvvm
             ResampleDoneResponse.ResampleDoneEvent += ResampleDoneResponse_ResampleDoneEvent;
         }
 
+        /// <summary>
+        /// upon image stored, update the image series vm
+        /// </summary>
+        /// <param name="methodGuid"></param>
+        /// <param name="imageGuid"></param>
+        /// <param name="repoGb"></param>
         void ImageStoredResponse_ImageStoredEvent(string methodGuid, Guid imageGuid, double repoGb)
         {
             LocalImageResourceManagerClient imageResource = new LocalImageResourceManagerClient();
@@ -64,6 +73,11 @@ namespace PheonixRt.Mvvm
             imageResource.Close();
         }
 
+        /// <summary>
+        /// upon structure stored, update the structure vm collection
+        /// </summary>
+        /// <param name="methodID">the scan method invoke</param>
+        /// <param name="response">response structure</param>
         void ImageStoredResponse_StructureStoredEvent(string methodID, Guid structureGuid)
         {
             LocalGeometryResourceManagerClient geometryResource = new LocalGeometryResourceManagerClient();
@@ -87,6 +101,11 @@ namespace PheonixRt.Mvvm
                 return;
         }
 
+        /// <summary>
+        /// upon meshing complete, update the structure vms
+        /// </summary>
+        /// <param name="methodID">the meshing method invoke</param>
+        /// <param name="response">response structure</param>
         void MeshingCompleteResponse_MeshCompleteEvent(string methodId, MeshingResponse response)
         {
             var lgrm = new LocalGeometryResourceManagerClient();
@@ -107,6 +126,11 @@ namespace PheonixRt.Mvvm
             lgrm.Close();
         }
 
+        /// <summary>
+        /// upone resample, update the vms for the image series
+        /// </summary>
+        /// <param name="methodID">the resample method invoke</param>
+        /// <param name="response">response structure</param>
         void ResampleDoneResponse_ResampleDoneEvent(string methodID, ImageVolumeResampleResponse response)
         {
             var lirm = new LocalImageResourceManagerClient();
@@ -130,12 +154,15 @@ namespace PheonixRt.Mvvm
             lirm.Close();
         }
 
+        // vm for collection of patient objects
         public ObservableCollection<PatientGroupViewModel> _patientGroups =
             new ObservableCollection<PatientGroupViewModel>();
 
+        // vm for collection of images series'
         public ObservableCollection<ImageSeriesViewModel> _series =
             new ObservableCollection<ImageSeriesViewModel>();
 
+        // vm for collection of structures
         public ObservableCollection<StructureViewModel> _structures =
             new ObservableCollection<StructureViewModel>();
 

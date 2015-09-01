@@ -16,11 +16,12 @@ using ServiceModelEx;
 using PheonixRt.DataContracts;
 
 using MprGenerationEngine.LocalImageResourceServiceReference1;
+using MprGenerationContracts;
 
 namespace MprGenerationEngine
 {
     // NOTE: You can use the "Rename" command on the "Refactor" menu to change the class name "Service1" in both code and config file together.
-    public class MprGenerationEngineService1 : IMprGenerationEngineService
+    public class MprGenerationEngineService : IMprGenerationEngineService
     {
         public void GenerateMpr(MprGenerationRequestV1 request)
         {

@@ -19,7 +19,7 @@ public interface IMprGenerationResponse
 }
 
 [ServiceBehavior(InstanceContextMode = InstanceContextMode.PerCall)]
-class MprGenerationHelper : QueuedResponseBase, IMprGenerationResponse
+class ImageRenderManagerHelper : QueuedResponseBase, IMprGenerationResponse
 {
     public static event Action<string, ImageDataContract, DateTime> MprGenerationDoneEvent = delegate { };
 
@@ -27,7 +27,7 @@ class MprGenerationHelper : QueuedResponseBase, IMprGenerationResponse
 
     public static void StartResponseHost()
     {
-        QueuedResponseBase.StartResponseHost<MprGenerationHelper>(_responseQueueName);
+        QueuedResponseBase.StartResponseHost<ImageRenderManagerHelper>(_responseQueueName);
     }
 
     public static void SetupResponseHeader(Guid methodId)

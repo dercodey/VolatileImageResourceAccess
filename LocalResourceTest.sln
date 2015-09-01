@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
-VisualStudioVersion = 12.0.40629.0
+VisualStudioVersion = 12.0.31101.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PheonixRtMvvmViewer", "LocalResourceTest\PheonixRtMvvmViewer.csproj", "{369EE9EB-3FFC-435E-9BCB-6DF9DC866DA1}"
 	ProjectSection(ProjectDependencies) = postProject
@@ -78,6 +78,14 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Utilities", "Utilities", "{
 	ProjectSection(SolutionItems) = preProject
 		Utilities\ServiceModelEx.dll = Utilities\ServiceModelEx.dll
 	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ImageRenderManagerService", "ImageRenderManagerService\ImageRenderManagerService.csproj", "{69AC75C7-8516-48DF-8A6C-F31F56841F01}"
+	ProjectSection(ProjectDependencies) = postProject
+		{925CEE59-7592-475B-981B-F94A042403A6} = {925CEE59-7592-475B-981B-F94A042403A6}
+		{F5AB22CE-CD79-4262-B831-8A2FD34B8B41} = {F5AB22CE-CD79-4262-B831-8A2FD34B8B41}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MprGenerationContracts", "MprGenerationContracts\MprGenerationContracts.csproj", "{11057CC7-ADD1-4999-B3D3-6FFF27816077}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -329,6 +337,42 @@ Global
 		{B27A94CE-28C2-47F6-9696-BDB294FA3739}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{B27A94CE-28C2-47F6-9696-BDB294FA3739}.Release|Win32.ActiveCfg = Release|Any CPU
 		{B27A94CE-28C2-47F6-9696-BDB294FA3739}.Release|x64.ActiveCfg = Release|Any CPU
+		{69AC75C7-8516-48DF-8A6C-F31F56841F01}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{69AC75C7-8516-48DF-8A6C-F31F56841F01}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{69AC75C7-8516-48DF-8A6C-F31F56841F01}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{69AC75C7-8516-48DF-8A6C-F31F56841F01}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{69AC75C7-8516-48DF-8A6C-F31F56841F01}.Debug|Win32.ActiveCfg = Debug|Any CPU
+		{69AC75C7-8516-48DF-8A6C-F31F56841F01}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{69AC75C7-8516-48DF-8A6C-F31F56841F01}.Design|Any CPU.ActiveCfg = Debug|Any CPU
+		{69AC75C7-8516-48DF-8A6C-F31F56841F01}.Design|Any CPU.Build.0 = Debug|Any CPU
+		{69AC75C7-8516-48DF-8A6C-F31F56841F01}.Design|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{69AC75C7-8516-48DF-8A6C-F31F56841F01}.Design|Mixed Platforms.Build.0 = Debug|Any CPU
+		{69AC75C7-8516-48DF-8A6C-F31F56841F01}.Design|Win32.ActiveCfg = Debug|Any CPU
+		{69AC75C7-8516-48DF-8A6C-F31F56841F01}.Design|x64.ActiveCfg = Debug|Any CPU
+		{69AC75C7-8516-48DF-8A6C-F31F56841F01}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{69AC75C7-8516-48DF-8A6C-F31F56841F01}.Release|Any CPU.Build.0 = Release|Any CPU
+		{69AC75C7-8516-48DF-8A6C-F31F56841F01}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{69AC75C7-8516-48DF-8A6C-F31F56841F01}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{69AC75C7-8516-48DF-8A6C-F31F56841F01}.Release|Win32.ActiveCfg = Release|Any CPU
+		{69AC75C7-8516-48DF-8A6C-F31F56841F01}.Release|x64.ActiveCfg = Release|Any CPU
+		{11057CC7-ADD1-4999-B3D3-6FFF27816077}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{11057CC7-ADD1-4999-B3D3-6FFF27816077}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{11057CC7-ADD1-4999-B3D3-6FFF27816077}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{11057CC7-ADD1-4999-B3D3-6FFF27816077}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{11057CC7-ADD1-4999-B3D3-6FFF27816077}.Debug|Win32.ActiveCfg = Debug|Any CPU
+		{11057CC7-ADD1-4999-B3D3-6FFF27816077}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{11057CC7-ADD1-4999-B3D3-6FFF27816077}.Design|Any CPU.ActiveCfg = Debug|Any CPU
+		{11057CC7-ADD1-4999-B3D3-6FFF27816077}.Design|Any CPU.Build.0 = Debug|Any CPU
+		{11057CC7-ADD1-4999-B3D3-6FFF27816077}.Design|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{11057CC7-ADD1-4999-B3D3-6FFF27816077}.Design|Mixed Platforms.Build.0 = Debug|Any CPU
+		{11057CC7-ADD1-4999-B3D3-6FFF27816077}.Design|Win32.ActiveCfg = Debug|Any CPU
+		{11057CC7-ADD1-4999-B3D3-6FFF27816077}.Design|x64.ActiveCfg = Debug|Any CPU
+		{11057CC7-ADD1-4999-B3D3-6FFF27816077}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{11057CC7-ADD1-4999-B3D3-6FFF27816077}.Release|Any CPU.Build.0 = Release|Any CPU
+		{11057CC7-ADD1-4999-B3D3-6FFF27816077}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{11057CC7-ADD1-4999-B3D3-6FFF27816077}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{11057CC7-ADD1-4999-B3D3-6FFF27816077}.Release|Win32.ActiveCfg = Release|Any CPU
+		{11057CC7-ADD1-4999-B3D3-6FFF27816077}.Release|x64.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -344,5 +388,7 @@ Global
 		{104EBA66-5B11-4A59-9FA5-EFD5E9C1CBAE} = {2D2A80BA-C64B-40E7-A278-CBE9DE45D89D}
 		{A1DABB37-7710-4500-ACCC-A76A2F446EA8} = {46EFA386-F5CD-4EDB-8782-57CC55251B40}
 		{E345589A-8692-44E3-9F11-D9F06C936367} = {46EFA386-F5CD-4EDB-8782-57CC55251B40}
+		{69AC75C7-8516-48DF-8A6C-F31F56841F01} = {E35F8681-195E-4CEE-9303-4A4070925F35}
+		{11057CC7-ADD1-4999-B3D3-6FFF27816077} = {E35F8681-195E-4CEE-9303-4A4070925F35}
 	EndGlobalSection
 EndGlobal

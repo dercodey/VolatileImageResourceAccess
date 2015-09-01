@@ -18,6 +18,7 @@ using PheonixRt.DataContracts;
 
 using PheonixRt.Mvvm.LocalImageResourceServiceReference1;
 using PheonixRt.Mvvm.MprGenerationEngineServiceReference1;
+using MprGenerationContracts;
 
 namespace PheonixRt.Mvvm.ViewModels
 {
@@ -44,7 +45,7 @@ namespace PheonixRt.Mvvm.ViewModels
                     CreateBitmapSourceFromGdiBitmap(PheonixRt.Mvvm.Properties.Resources.WaitingImage);
             }
 
-            MprGenerationHelper.MprGenerationDoneEvent += MprGenerationDone_MprGenerationDoneEvent;
+            ImageRenderManagerHelper.MprGenerationDoneEvent += MprGenerationDone_MprGenerationDoneEvent;
         }
 
         // stores the static bitmaps
@@ -166,15 +167,15 @@ namespace PheonixRt.Mvvm.ViewModels
             // set slider control
             switch (Orientation)
             {
-                case MprGenerationEngineServiceReference1.Orientation.Transverse:
+                case Orientation.Transverse:
                     MaxSlicePosition = ImageVolume.Depth;
                     break;
 
-                case MprGenerationEngineServiceReference1.Orientation.Coronal:
+                case Orientation.Coronal:
                     MaxSlicePosition = ImageVolume.Height;
                     break;
 
-                case MprGenerationEngineServiceReference1.Orientation.Sagittal:
+                case Orientation.Sagittal:
                     MaxSlicePosition = ImageVolume.Width;
                     break;
             }
@@ -270,17 +271,17 @@ namespace PheonixRt.Mvvm.ViewModels
             int desiredHeight = 0;
             switch (Orientation)
             {
-                case MprGenerationEngineServiceReference1.Orientation.Transverse:
+                case Orientation.Transverse:
                     desiredWidth = _ivdc.Width;
                     desiredHeight = _ivdc.Height;
                     break;
 
-                case MprGenerationEngineServiceReference1.Orientation.Coronal:
+                case Orientation.Coronal:
                     desiredWidth = _ivdc.Width;
                     desiredHeight = _ivdc.Depth;
                     break;
 
-                case MprGenerationEngineServiceReference1.Orientation.Sagittal:
+                case Orientation.Sagittal:
                     desiredWidth = _ivdc.Height;
                     desiredHeight = _ivdc.Depth;
                     break;
@@ -304,10 +305,10 @@ namespace PheonixRt.Mvvm.ViewModels
         {
             switch (Orientation)
             {
-                case MprGenerationEngineServiceReference1.Orientation.Transverse:
+                case Orientation.Transverse:
                     break;
 
-                case MprGenerationEngineServiceReference1.Orientation.Coronal:
+                case Orientation.Coronal:
                     ImageElementRenderTransform = new ScaleTransform()
                     {
                         ScaleY = _ivdc.VoxelSpacing.Z
@@ -315,7 +316,7 @@ namespace PheonixRt.Mvvm.ViewModels
                     };
                     break;
 
-                case MprGenerationEngineServiceReference1.Orientation.Sagittal:
+                case Orientation.Sagittal:
                     ImageElementRenderTransform = new ScaleTransform()
                     {
                         ScaleY = _ivdc.VoxelSpacing.Z
@@ -349,7 +350,7 @@ namespace PheonixRt.Mvvm.ViewModels
                 Guid methodId = Guid.NewGuid();
                 this._queueWaiting.TryAdd(methodId, request);
 
-                MprGenerationHelper.SetupResponseHeader(methodId);
+                ImageRenderManagerHelper.SetupResponseHeader(methodId);
                 mges.GenerateMpr(request);
             }
 

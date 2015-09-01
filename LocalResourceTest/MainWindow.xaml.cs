@@ -70,8 +70,8 @@ namespace PheonixRt.Mvvm
         DicomImportPreprocessCoordinator _dipCoordinator =
             new DicomImportPreprocessCoordinator();
 
-        ImageDisplayManager _imageDisplayManager =
-            new ImageDisplayManager();
+        ImageSelectionManager _imageDisplayManager =
+            new ImageSelectionManager();
 
         void cv_CurrentChanged(object sender, EventArgs e)
         {
@@ -96,19 +96,19 @@ namespace PheonixRt.Mvvm
             transverse.DataContext = new MprImageViewModel()
             {
                 ImageVolume = ivdc,
-                Orientation = MprGenerationEngineServiceReference1.Orientation.Transverse
+                Orientation = MprGenerationContracts.Orientation.Transverse
             };
 
             coronal.DataContext = new MprImageViewModel()
             {
                 ImageVolume = ivdc,
-                Orientation = MprGenerationEngineServiceReference1.Orientation.Coronal
+                Orientation = MprGenerationContracts.Orientation.Coronal
             };
 
             sagittal.DataContext = new MprImageViewModel()
             {
                 ImageVolume = ivdc,
-                Orientation = MprGenerationEngineServiceReference1.Orientation.Sagittal
+                Orientation = MprGenerationContracts.Orientation.Sagittal
             };
         }
 
@@ -146,7 +146,7 @@ namespace PheonixRt.Mvvm
                         }
  
                         Dispatcher.Invoke(() =>
-                            ImageDisplayManager.AddOrUpdate<ImageSeriesViewModel>(
+                            ImageSelectionManager.AddOrUpdate<ImageSeriesViewModel>(
                                 _imageDisplayManager._series,
                                     s => s.SeriesInstanceUID.CompareTo(idc.SeriesInstanceUID) == 0,
                                     s =>
@@ -182,7 +182,7 @@ namespace PheonixRt.Mvvm
                         //}
 
                         Dispatcher.Invoke(() =>
-                            ImageDisplayManager.AddOrUpdate<ImageSeriesViewModel>(
+                            ImageSelectionManager.AddOrUpdate<ImageSeriesViewModel>(
                                 _imageDisplayManager._series,
                                     s => s.SeriesInstanceUID.CompareTo(ivdc.Identity.SeriesInstanceUID) == 0,
                                     s =>
@@ -220,7 +220,7 @@ namespace PheonixRt.Mvvm
                         int meshVertices = smdc != null ? (int)smdc.VertexBuffer.ElementCount : 0;
 
                         Dispatcher.Invoke(() =>
-                            ImageDisplayManager.AddOrUpdate<StructureViewModel>(
+                            ImageSelectionManager.AddOrUpdate<StructureViewModel>(
                                 _imageDisplayManager._structures,
                                     s => s.ROIName.CompareTo(sdc.ROIName) == 0,
                                     s => 

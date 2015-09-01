@@ -24,7 +24,7 @@
     <MetadataFile FileName="service.wsdl" MetadataType="Wsdl" ID="2963f1a4-231b-47ad-b4a1-88684553c0c2" SourceId="1" SourceUrl="http://localhost:8733/Design_Time_Addresses/MprGenerationEngine/Service1/mex" />
     <MetadataFile FileName="service.xsd" MetadataType="Schema" ID="9b1c7900-3712-4f18-83d6-60415e2b607d" SourceId="1" SourceUrl="http://localhost:8733/Design_Time_Addresses/MprGenerationEngine/Service1/mex" />
     <MetadataFile FileName="service1.xsd" MetadataType="Schema" ID="05b87671-42bc-4b5d-9b01-ccd5e714fe99" SourceId="1" SourceUrl="http://localhost:8733/Design_Time_Addresses/MprGenerationEngine/Service1/mex" />
-    <MetadataFile FileName="MprGenerationEngine.xsd" MetadataType="Schema" ID="dc0cb777-8ba8-4b2f-9b14-256e071cd842" SourceId="1" SourceUrl="http://localhost:8733/Design_Time_Addresses/MprGenerationEngine/Service1/mex" />
+    <MetadataFile FileName="MprGenerationContracts.xsd" MetadataType="Schema" ID="59163c27-9145-4bcc-a473-4ac6d970d7f5" SourceId="1" SourceUrl="http://localhost:8733/Design_Time_Addresses/MprGenerationEngine/Service1/mex" />
   </Metadata>
   <Extensions>
     <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />

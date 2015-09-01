@@ -6,6 +6,7 @@ using System.ServiceModel;
 using System.Text;
 
 using PheonixRt.DataContracts;
+using MprGenerationContracts;
 
 namespace MprGenerationEngine
 {
@@ -15,59 +16,5 @@ namespace MprGenerationEngine
     {
         [OperationContract(IsOneWay=true)]
         void GenerateMpr(MprGenerationRequestV1 request);
-    }
-
-    /// <summary>
-    /// 
-    /// </summary>
-    public enum Orientation { Transverse, Coronal, Sagittal };
-
-    /// <summary>
-    /// 
-    /// </summary>
-    [DataContract]
-    public class MprGenerationRequestV1
-    {
-        [DataMember]
-        public DateTime RequestTime
-        {
-            get;
-            set;
-        }
-
-        [DataMember]
-        public Guid ImageVolumeId
-        {
-            get;
-            set;
-        }
-
-        [DataMember]
-        public Orientation Orientation
-        {
-            get;
-            set;
-        }
-
-        [DataMember]
-        public int SlicePosition
-        {
-            get;
-            set;
-        }
-
-        [DataMember]
-        public int WindowCenter
-        {
-            get;
-            set;
-        }
-
-        [DataMember]
-        public int WindowWidth
-        {
-            get;
-            set;
-        }
     }
 }

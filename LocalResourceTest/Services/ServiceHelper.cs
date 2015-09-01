@@ -23,7 +23,7 @@ namespace PheonixRt.Mvvm.Services
 #if STREAM_RESPONSE
             MprGenerationStreamDone.StartResponseHost();
 #else
-            MprGenerationHelper.StartResponseHost();
+            ImageRenderManagerHelper.StartResponseHost();
 #endif
         }
     }

@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:ser="http://schemas.microsoft.com/2003/10/Serialization/" xmlns:tns="http://schemas.datacontract.org/2004/07/MprGenerationContracts" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/MprGenerationContracts" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+  <xs:complexType name="MprGenerationRequestV1">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ImageVolumeId" type="ser:guid" />
+      <xs:element minOccurs="0" name="Orientation" type="tns:Orientation" />
+      <xs:element minOccurs="0" name="RequestTime" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="SlicePosition" type="xs:int" />
+      <xs:element minOccurs="0" name="WindowCenter" type="xs:int" />
+      <xs:element minOccurs="0" name="WindowWidth" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="MprGenerationRequestV1" nillable="true" type="tns:MprGenerationRequestV1" />
+  <xs:simpleType name="Orientation">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Transverse" />
+      <xs:enumeration value="Coronal" />
+      <xs:enumeration value="Sagittal" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="Orientation" nillable="true" type="tns:Orientation" />
+</xs:schema>

@@ -8,11 +8,11 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace PheonixRt.Mvvm.MprGenerationEngineServiceReference1 {
+namespace ImageRenderManagerService.MprEngineServiceReference1 {
     
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    [System.ServiceModel.ServiceContractAttribute(ConfigurationName="MprGenerationEngineServiceReference1.IMprGenerationEngineService")]
+    [System.ServiceModel.ServiceContractAttribute(ConfigurationName="MprEngineServiceReference1.IMprGenerationEngineService")]
     public interface IMprGenerationEngineService {
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IMprGenerationEngineService/GenerateMpr")]
@@ -20,12 +20,12 @@ namespace PheonixRt.Mvvm.MprGenerationEngineServiceReference1 {
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    public interface IMprGenerationEngineServiceChannel : PheonixRt.Mvvm.MprGenerationEngineServiceReference1.IMprGenerationEngineService, System.ServiceModel.IClientChannel {
+    public interface IMprGenerationEngineServiceChannel : ImageRenderManagerService.MprEngineServiceReference1.IMprGenerationEngineService, System.ServiceModel.IClientChannel {
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    public partial class MprGenerationEngineServiceClient : System.ServiceModel.ClientBase<PheonixRt.Mvvm.MprGenerationEngineServiceReference1.IMprGenerationEngineService>, PheonixRt.Mvvm.MprGenerationEngineServiceReference1.IMprGenerationEngineService {
+    public partial class MprGenerationEngineServiceClient : System.ServiceModel.ClientBase<ImageRenderManagerService.MprEngineServiceReference1.IMprGenerationEngineService>, ImageRenderManagerService.MprEngineServiceReference1.IMprGenerationEngineService {
         
         public MprGenerationEngineServiceClient() {
         }
