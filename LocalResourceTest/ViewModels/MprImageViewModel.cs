@@ -334,8 +334,6 @@ namespace PheonixRt.Mvvm.ViewModels
             if (_ivdc == null)
                 return;
 
-            MprGenerationEngineServiceClient mges =
-                new MprGenerationEngineServiceClient();
             MprGenerationRequestV1 request =
                 new MprGenerationRequestV1();
             request.RequestTime = DateTime.Now;
@@ -345,17 +343,26 @@ namespace PheonixRt.Mvvm.ViewModels
             request.WindowCenter = this.WindowCenter;
             request.WindowWidth = this.WindowWidth;
 
-            OperationContextScope contextScope = new OperationContextScope(mges.InnerChannel);
+            if (_mges == null
+                || _mges.State != CommunicationState.Opened)
+            {
+                _mges = new MprGenerationEngineServiceClient();
+            }
+
+            OperationContextScope contextScope = new OperationContextScope(_mges.InnerChannel);
             {
                 Guid methodId = Guid.NewGuid();
                 this._queueWaiting.TryAdd(methodId, request);
 
                 ImageRenderManagerHelper.SetupResponseHeader(methodId);
-                mges.GenerateMpr(request);
+                _mges.GenerateMpr(request);
             }
 
-            mges.Close();
+            // TODO: determine when to close
+            // _mges.Close();
         }
+
+        MprGenerationEngineServiceClient _mges;
 
         ConcurrentDictionary<Guid, MprGenerationRequestV1> _queueWaiting =
             new ConcurrentDictionary<Guid, MprGenerationRequestV1>();

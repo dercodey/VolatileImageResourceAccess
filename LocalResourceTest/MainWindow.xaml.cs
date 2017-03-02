@@ -1,33 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.ServiceModel;
-using System.Text;
 using System.Threading.Tasks;
-
-using System.Collections.ObjectModel;
 using System.ComponentModel;
 
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-
-using System.Windows.Media.Media3D;
-using System.Diagnostics;
-using System.Runtime.InteropServices;
-using System.Drawing;
-
-using System.Messaging;
-
-//using ServiceModelEx;
-
-using PheonixRt.DataContracts;
 
 using PheonixRt.Mvvm.LocalImageResourceServiceReference1;
 using PheonixRt.Mvvm.LocalGeometryResourceServiceReference1;
@@ -59,6 +36,12 @@ namespace PheonixRt.Mvvm
 
             DicomLoaderManagerHelper.ImageStoredEvent += ImageStoredResponse_ImageStoredEvent;
             listViewStructures.ItemsSource = _imageDisplayManager._structures;
+
+            var testDicomDataPath = Environment.GetEnvironmentVariable("TEST_DICOM_DATA");
+            if (testDicomDataPath != null)
+            {
+                textDirectory.Text = testDicomDataPath;
+            }
         }
 
         void ImageStoredResponse_ImageStoredEvent(string arg1, Guid imageGuid, double repoGb)

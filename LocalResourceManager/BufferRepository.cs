@@ -15,8 +15,15 @@ namespace LocalResourceManager
 {
     public static class BufferRepository
     {
+        static string _blockPath = string.Format("{0}\\TempBlocks", System.IO.Path.GetTempPath());
 
-        public static string _blockPath = @"C:\RD\Blocks";
+        static BufferRepository()
+        {
+            if (!System.IO.Directory.Exists(_blockPath))
+            {
+                System.IO.Directory.CreateDirectory(_blockPath);
+            }
+        }
 
         public static SharedBuffer CreateBuffer(Guid id, Type elementType, long bufferSize)
         {

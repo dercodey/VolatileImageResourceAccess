@@ -61,6 +61,10 @@ namespace DicomLoaderManager
             {
                 // process plan
             }
+            else if (modality.CompareTo("REG") == 0)
+            {
+                // process registration
+            }
             else
             {
                 StoreImage(ds, modality);
