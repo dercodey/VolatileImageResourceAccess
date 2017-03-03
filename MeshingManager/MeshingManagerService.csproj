@@ -8,6 +8,8 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{A1DABB37-7710-4500-ACCC-A76A2F446EA8}</ProjectGuid>
     <OutputType>Library</OutputType>
+    <IntermediateOutputPath>$(SolutionDir)\obj\$(Configuration)\$(MSBuildProjectName)\</IntermediateOutputPath>
+    <OutputPath>$(SolutionDir)\bin\$(Configuration)\$(MSBuildProjectName)\</OutputPath>    
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>PheonixRt.MeshingManagerService</RootNamespace>
     <AssemblyName>MeshingManagerService</AssemblyName>
@@ -35,7 +37,6 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -43,7 +44,6 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
