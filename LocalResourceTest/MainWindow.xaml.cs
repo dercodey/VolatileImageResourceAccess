@@ -23,6 +23,9 @@ namespace PheonixRt.Mvvm
         {
             InitializeComponent();
 
+            _imageDisplayManager =
+                        new ImageSelectionManager(this.Dispatcher);
+
             // start up the response hosts
             ServiceHelper.StartResponseHosts();
 
@@ -46,15 +49,15 @@ namespace PheonixRt.Mvvm
 
         void ImageStoredResponse_ImageStoredEvent(string arg1, Guid imageGuid, double repoGb)
         {
-            this.textRepositorySize.Text =
-                string.Format("{0,4:F} GB", repoGb);
+            // TODO: if these events are propagated through the EventAggregator they can be made on the UI thread directly
+            this.Dispatcher.Invoke(() =>            
+                this.textRepositorySize.Text = string.Format("{0,4:F} GB", repoGb));
         }
 
         DicomImportPreprocessCoordinator _dipCoordinator =
             new DicomImportPreprocessCoordinator();
 
-        ImageSelectionManager _imageDisplayManager =
-            new ImageSelectionManager();
+        ImageSelectionManager _imageDisplayManager;
 
         void cv_CurrentChanged(object sender, EventArgs e)
         {

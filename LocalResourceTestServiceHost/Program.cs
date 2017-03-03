@@ -25,8 +25,11 @@ namespace LocalResourceTestServiceHost
     {
         static void Main(string[] args)
         {
-            SetupQueues();
+            // set up service bus endpoints
+            DicomScanManager.InitializeEndpoint();
 
+            SetupQueues();
+           
             StartHost<LocalImageResourceManager>();
             StartHost<LocalGeometryResourceManager>();
             StartHost<DicomScanManager>();
@@ -40,7 +43,9 @@ namespace LocalResourceTestServiceHost
             {
                 WriteHostInfo(host);
             }
-            Console.ReadLine();
+
+            Console.WriteLine("Press any key to exit");
+            Console.ReadKey();
         }
 
         static void WriteHostInfo(ServiceHost host)

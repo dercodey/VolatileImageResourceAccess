@@ -1,20 +1,15 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Windows.Threading;
 using System.Windows.Data;
-
-using PheonixRt.DataContracts;
 using PheonixRt.MeshingServiceContracts;
 using PheonixRt.ResampleServiceContracts;
 
 using PheonixRt.Mvvm.LocalImageResourceServiceReference1;
 using PheonixRt.Mvvm.LocalGeometryResourceServiceReference1;
 
-using PheonixRt.Mvvm.Services;
 
 namespace PheonixRt.Mvvm
 {
@@ -23,8 +18,12 @@ namespace PheonixRt.Mvvm
     /// </summary>
     public class ImageSelectionManager
     {
-        public ImageSelectionManager()
+        Dispatcher _dispatcher;
+
+        public ImageSelectionManager(Dispatcher dispatcher)
         {
+            _dispatcher = dispatcher;
+
             ICollectionView pgv = CollectionViewSource.GetDefaultView(_patientGroups);
             pgv.SortDescriptions.Add(new SortDescription("PatientId", ListSortDirection.Ascending));
 
@@ -52,25 +51,37 @@ namespace PheonixRt.Mvvm
         void ImageStoredResponse_ImageStoredEvent(string methodGuid, Guid imageGuid, double repoGb)
         {
             LocalImageResourceManagerClient imageResource = new LocalImageResourceManagerClient();
-            var idc = imageResource.GetImage(imageGuid);
-
-            AddOrUpdate(_patientGroups,
-                pg => pg.PatientId.CompareTo(idc.PatientId) == 0,
-                pg => pg.InstanceCount++,
-                () => new PatientGroupViewModel(idc.PatientId));
-
-            ICollectionView pgv = CollectionViewSource.GetDefaultView(_patientGroups);
-            var pgvm = (PatientGroupViewModel)pgv.CurrentItem;
-            if (pgvm != null
-                && pgvm.PatientId.CompareTo(idc.PatientId) == 0)
+            try
             {
-                AddOrUpdate<ImageSeriesViewModel>(_series,
-                    s => s.SeriesInstanceUID.CompareTo(idc.SeriesInstanceUID) == 0,
-                    s => s.InstanceCount++,
-                    () => ImageSeriesViewModel.Create(idc));
-            }
+                var idc = imageResource.GetImage(imageGuid);
 
-            imageResource.Close();
+                // TODO: null happens because of orphaned events
+                if (idc != null)
+                {
+                    _dispatcher.Invoke(() =>
+                    {
+                        AddOrUpdate(_patientGroups,
+                            pg => pg.PatientId.CompareTo(idc.PatientId) == 0,
+                            pg => pg.InstanceCount++,
+                            () => new PatientGroupViewModel(idc.PatientId));
+
+                        ICollectionView pgv = CollectionViewSource.GetDefaultView(_patientGroups);
+                        var pgvm = (PatientGroupViewModel)pgv.CurrentItem;
+                        if (pgvm != null
+                            && pgvm.PatientId.CompareTo(idc.PatientId) == 0)
+                        {
+                            AddOrUpdate<ImageSeriesViewModel>(_series,
+                                s => s.SeriesInstanceUID.CompareTo(idc.SeriesInstanceUID) == 0,
+                                s => s.InstanceCount++,
+                                () => ImageSeriesViewModel.Create(idc));
+                        }
+                    });
+                }
+            }
+            finally
+            { 
+                imageResource.Close();
+            }
         }
 
         /// <summary>

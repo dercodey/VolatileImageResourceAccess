@@ -20,12 +20,33 @@ using PheonixRt.DataContracts;
 
 using DicomLoaderManager.LocalGeometryResourceServiceReference1;
 using DicomLoaderManager.LocalImageResourceServiceReference1;
+using NServiceBus;
+using Contracts.DicomLoader;
 
 namespace DicomLoaderManager
 {
     [ServiceBehavior(InstanceContextMode = InstanceContextMode.PerCall)]
     public class DicomScanManager : IDicomScanManager
     {
+        static IEndpointInstance _endpointInstance = null;
+
+        public static void InitializeEndpoint()
+        {
+            _endpointInstance = ConfigureSBEndpoint().GetAwaiter().GetResult();
+        }
+
+        private static async Task<IEndpointInstance> ConfigureSBEndpoint()
+        {
+            var endpointConfiguration = new EndpointConfiguration("DicomLoaderManager.DicomLoaderManager");
+            endpointConfiguration.UseSerialization<JsonSerializer>();
+            endpointConfiguration.EnableInstallers();
+            endpointConfiguration.UsePersistence<InMemoryPersistence>();
+            endpointConfiguration.SendFailedMessagesTo("error");
+
+            var endpointInstance = await Endpoint.Start(endpointConfiguration).ConfigureAwait(false);
+            return endpointInstance;
+        }
+
         string _pathname;
         bool _rescan = false;
 
@@ -167,10 +188,18 @@ namespace DicomLoaderManager
                 idc.PixelBuffer.ReleaseHandle();
                 idc.PixelBuffer.CloseMapping();
 
-                // inform of found image
-                ImageResponseClient proxy = ImageResponseClient.CreateProxy();
-                proxy.OnImageStored(idc.ImageId, repoGb);
-                proxy.Close();
+                //// inform of found image
+                //ImageResponseClient proxy = ImageResponseClient.CreateProxy();
+                //proxy.OnImageStored(idc.ImageId, repoGb);
+                //proxy.Close();
+
+                // publish the image stored message
+                var imageStored = new ImageStored
+                {
+                    ImageGuid = idc.ImageId,
+                    RepoGb = repoGb,
+                };
+                _endpointInstance.Publish(imageStored);
             }
         }
 

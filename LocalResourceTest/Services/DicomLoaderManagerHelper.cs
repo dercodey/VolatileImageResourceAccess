@@ -1,15 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.ServiceModel;
-using System.Text;
 using System.Threading.Tasks;
 
 using ServiceModelEx;
 
-using PheonixRt.DataContracts;
-
 using PheonixRt.Mvvm.Services;
+using NServiceBus;
+using NServiceBus.Logging;
+using Contracts.DicomLoader;
 
 [ServiceContract]
 public interface IImageStoredResponse
@@ -28,7 +26,10 @@ public interface IImageStoredResponse
 }
 
 [ServiceBehavior(InstanceContextMode = InstanceContextMode.PerCall)]
-public class DicomLoaderManagerHelper : QueuedResponseBase, IImageStoredResponse
+public class DicomLoaderManagerHelper : 
+    QueuedResponseBase, 
+    IImageStoredResponse,
+    IHandleMessages<ImageStored>
 {
     public static event Action<string, Guid, double> ImageStoredEvent = delegate { };
     public static event Action<string, Guid> StructureStoredEvent = delegate { };
@@ -36,6 +37,29 @@ public class DicomLoaderManagerHelper : QueuedResponseBase, IImageStoredResponse
     public static event Action<string> ScanCompletedEvent = delegate { };
 
     static string _responseQueueName = "ImageStoredResponseQueue";
+
+    static IEndpointInstance _endpointInstance = null;
+    static ILog log = LogManager.GetLogger<DicomLoaderManagerHelper>();
+
+    static DicomLoaderManagerHelper()
+    {
+        _endpointInstance = ConfigureSBEndpoint().GetAwaiter().GetResult();
+
+        // Subscription happens automatically, via mapping in app.config
+    }
+
+    private static async Task<IEndpointInstance> ConfigureSBEndpoint()
+    {
+        var endpointConfiguration =
+            new EndpointConfiguration("DicomLoaderManagerHelper");
+        endpointConfiguration.UseSerialization<JsonSerializer>();
+        endpointConfiguration.EnableInstallers();
+        endpointConfiguration.UsePersistence<InMemoryPersistence>();
+        endpointConfiguration.SendFailedMessagesTo("error");
+
+        var endpointInstance = await Endpoint.Start(endpointConfiguration).ConfigureAwait(false);
+        return endpointInstance;
+    }
 
     public static void StartResponseHost()
     {
@@ -54,7 +78,7 @@ public class DicomLoaderManagerHelper : QueuedResponseBase, IImageStoredResponse
                 "ResponseContext", "ServiceModelEx");
         string methodID = responseContext.MethodId;
 
-        ImageStoredEvent(methodID, imageGuid, repoGb);
+        // ImageStoredEvent(methodID, imageGuid, repoGb);
     }
 
     public void OnStructureStored(Guid structureGuid)
@@ -88,5 +112,14 @@ public class DicomLoaderManagerHelper : QueuedResponseBase, IImageStoredResponse
         string methodID = responseContext.MethodId;
 
         ScanCompletedEvent(methodID);
+    }
+
+    public Task Handle(ImageStored message, IMessageHandlerContext context)
+    {
+        // log.Info($"Handling: ImageStored for Image Id: {message.ImageGuid}");
+        string methodID = string.Empty;
+        ImageStoredEvent(methodID, message.ImageGuid, message.RepoGb);
+
+        return Task.CompletedTask;
     }
 }

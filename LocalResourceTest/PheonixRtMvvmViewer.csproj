@@ -9,7 +9,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>PheonixRt.Mvvm</RootNamespace>
     <AssemblyName>LocalResourceTest</AssemblyName>
-    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <WarningLevel>4</WarningLevel>
@@ -42,6 +42,10 @@
     <UseVSHostingProcess>false</UseVSHostingProcess>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="NServiceBus.Core, Version=6.0.0.0, Culture=neutral, PublicKeyToken=9fc386479f8a226c, processorArchitecture=MSIL">
+      <HintPath>..\packages\NServiceBus.6.1.3\lib\net452\NServiceBus.Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="ServiceModelEx">
       <HintPath>..\Utilities\ServiceModelEx.dll</HintPath>
     </Reference>
@@ -151,6 +155,7 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="packages.config" />
     <None Include="Properties\DataSources\Elekta.DataContracts.ContourDataContract.datasource" />
     <None Include="Properties\DataSources\Elekta.DataContracts.ImageDataContract.datasource" />
     <None Include="Properties\DataSources\Elekta.DataContracts.StructureDataContract.datasource" />
@@ -251,6 +256,10 @@
     <WCFMetadataStorage Include="Service References\ResampleManagerServiceReference1\" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Contracts.DicomLoader\Contracts.DicomLoader.csproj">
+      <Project>{99feb912-ba27-4596-8bf1-e9ace35b8c6f}</Project>
+      <Name>Contracts.DicomLoader</Name>
+    </ProjectReference>
     <ProjectReference Include="..\LocalResourceDataContracts\LocalResourceDataContracts.csproj">
       <Project>{9d6c100b-5ced-4fe0-8bae-7bbc21905dcc}</Project>
       <Name>LocalResourceDataContracts</Name>

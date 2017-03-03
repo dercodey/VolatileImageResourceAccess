@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
-VisualStudioVersion = 12.0.31101.0
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PheonixRtMvvmViewer", "LocalResourceTest\PheonixRtMvvmViewer.csproj", "{369EE9EB-3FFC-435E-9BCB-6DF9DC866DA1}"
 	ProjectSection(ProjectDependencies) = postProject
@@ -86,6 +86,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ImageRenderManagerService",
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MprGenerationContracts", "MprGenerationContracts\MprGenerationContracts.csproj", "{11057CC7-ADD1-4999-B3D3-6FFF27816077}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Contracts.DicomLoader", "Contracts.DicomLoader\Contracts.DicomLoader.csproj", "{99FEB912-BA27-4596-8BF1-E9ACE35B8C6F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -373,6 +375,30 @@ Global
 		{11057CC7-ADD1-4999-B3D3-6FFF27816077}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{11057CC7-ADD1-4999-B3D3-6FFF27816077}.Release|Win32.ActiveCfg = Release|Any CPU
 		{11057CC7-ADD1-4999-B3D3-6FFF27816077}.Release|x64.ActiveCfg = Release|Any CPU
+		{99FEB912-BA27-4596-8BF1-E9ACE35B8C6F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{99FEB912-BA27-4596-8BF1-E9ACE35B8C6F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{99FEB912-BA27-4596-8BF1-E9ACE35B8C6F}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{99FEB912-BA27-4596-8BF1-E9ACE35B8C6F}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{99FEB912-BA27-4596-8BF1-E9ACE35B8C6F}.Debug|Win32.ActiveCfg = Debug|Any CPU
+		{99FEB912-BA27-4596-8BF1-E9ACE35B8C6F}.Debug|Win32.Build.0 = Debug|Any CPU
+		{99FEB912-BA27-4596-8BF1-E9ACE35B8C6F}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{99FEB912-BA27-4596-8BF1-E9ACE35B8C6F}.Debug|x64.Build.0 = Debug|Any CPU
+		{99FEB912-BA27-4596-8BF1-E9ACE35B8C6F}.Design|Any CPU.ActiveCfg = Debug|Any CPU
+		{99FEB912-BA27-4596-8BF1-E9ACE35B8C6F}.Design|Any CPU.Build.0 = Debug|Any CPU
+		{99FEB912-BA27-4596-8BF1-E9ACE35B8C6F}.Design|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{99FEB912-BA27-4596-8BF1-E9ACE35B8C6F}.Design|Mixed Platforms.Build.0 = Debug|Any CPU
+		{99FEB912-BA27-4596-8BF1-E9ACE35B8C6F}.Design|Win32.ActiveCfg = Debug|Any CPU
+		{99FEB912-BA27-4596-8BF1-E9ACE35B8C6F}.Design|Win32.Build.0 = Debug|Any CPU
+		{99FEB912-BA27-4596-8BF1-E9ACE35B8C6F}.Design|x64.ActiveCfg = Debug|Any CPU
+		{99FEB912-BA27-4596-8BF1-E9ACE35B8C6F}.Design|x64.Build.0 = Debug|Any CPU
+		{99FEB912-BA27-4596-8BF1-E9ACE35B8C6F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{99FEB912-BA27-4596-8BF1-E9ACE35B8C6F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{99FEB912-BA27-4596-8BF1-E9ACE35B8C6F}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{99FEB912-BA27-4596-8BF1-E9ACE35B8C6F}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{99FEB912-BA27-4596-8BF1-E9ACE35B8C6F}.Release|Win32.ActiveCfg = Release|Any CPU
+		{99FEB912-BA27-4596-8BF1-E9ACE35B8C6F}.Release|Win32.Build.0 = Release|Any CPU
+		{99FEB912-BA27-4596-8BF1-E9ACE35B8C6F}.Release|x64.ActiveCfg = Release|Any CPU
+		{99FEB912-BA27-4596-8BF1-E9ACE35B8C6F}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -390,5 +416,6 @@ Global
 		{E345589A-8692-44E3-9F11-D9F06C936367} = {46EFA386-F5CD-4EDB-8782-57CC55251B40}
 		{69AC75C7-8516-48DF-8A6C-F31F56841F01} = {E35F8681-195E-4CEE-9303-4A4070925F35}
 		{11057CC7-ADD1-4999-B3D3-6FFF27816077} = {E35F8681-195E-4CEE-9303-4A4070925F35}
+		{99FEB912-BA27-4596-8BF1-E9ACE35B8C6F} = {E17A9D7C-7870-4129-B8CC-7456970744EF}
 	EndGlobalSection
 EndGlobal

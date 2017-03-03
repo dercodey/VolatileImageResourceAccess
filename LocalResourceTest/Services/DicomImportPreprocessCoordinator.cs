@@ -17,6 +17,7 @@ using PheonixRt.Mvvm.ResampleManagerServiceReference1;
 using PheonixRt.Mvvm.DicomScanServiceReference1;
 
 using PheonixRt.Mvvm.Services;
+using NServiceBus;
 
 namespace PheonixRt.Mvvm
 {
@@ -28,6 +29,26 @@ namespace PheonixRt.Mvvm
     /// </summary>
     public class DicomImportPreprocessCoordinator
     {
+        static IEndpointInstance _endpointInstance = null;
+
+        static DicomImportPreprocessCoordinator()
+        {
+            _endpointInstance = ConfigureSBEndpoint().GetAwaiter().GetResult();
+        }
+
+        private static async Task<IEndpointInstance> ConfigureSBEndpoint()
+        {
+            var endpointConfiguration = 
+                new EndpointConfiguration("PheonixRt.Mvvm.DicomImportPreprocessCoordinator");
+            endpointConfiguration.UseSerialization<JsonSerializer>();
+            endpointConfiguration.EnableInstallers();
+            endpointConfiguration.UsePersistence<InMemoryPersistence>();
+            endpointConfiguration.SendFailedMessagesTo("error");
+
+            var endpointInstance = await Endpoint.Start(endpointConfiguration).ConfigureAwait(false);
+            return endpointInstance;
+        }
+
         public DicomImportPreprocessCoordinator()
         {
             DicomLoaderManagerHelper.StructureStoredEvent += ImageStoredResponse_StructureStoredEvent;
@@ -45,10 +66,14 @@ namespace PheonixRt.Mvvm
             using (OperationContextScope contextScope =
                 new OperationContextScope(scanManager.InnerChannel))
             {
-                var methodId = Guid.NewGuid();
+                var methodId = Guid.Empty; // Guid.NewGuid();
                 DicomLoaderManagerHelper.SetupResponseHeader(methodId);
 
+#if USE_ENDPOINT
+                _endpointInstance.Send<ScanDirectory>();
+#else
                 scanManager.ScanDirectory(directory, false);
+#endif
             }
             scanManager.Close();
         }
