@@ -78,7 +78,6 @@
   <ItemGroup>
     <Compile Include="DicomScanManager.cs" />
     <Compile Include="IDicomScanManager.cs" />
-    <Compile Include="ImageResponseProxy.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Service References\LocalGeometryResourceServiceReference1\Reference.cs">
       <AutoGen>True</AutoGen>

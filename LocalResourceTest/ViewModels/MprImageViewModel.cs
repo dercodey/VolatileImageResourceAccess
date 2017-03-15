@@ -122,12 +122,10 @@ namespace PheonixRt.Mvvm.ViewModels
         public Orientation Orientation
         {
             get { return _orientation; }
-            set 
-            { 
+            set
+            {
                 SetProperty(ref _orientation, value);
                 SetupSlicePositions();
-
-                QueueRequest();
             }
         }
         Orientation _orientation = Orientation.Transverse;
@@ -164,6 +162,9 @@ namespace PheonixRt.Mvvm.ViewModels
         /// </summary>
         void SetupSlicePositions()
         {
+            if (ImageVolume == null)
+                return;
+
             // set slider control
             switch (Orientation)
             {

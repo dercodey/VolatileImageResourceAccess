@@ -23,22 +23,21 @@ namespace PheonixRt.Mvvm
         {
             InitializeComponent();
 
-            _imageDisplayManager =
+            _imageSelectionManager =
                         new ImageSelectionManager(this.Dispatcher);
 
             // start up the response hosts
             ServiceHelper.StartResponseHosts();
 
-            ICollectionView pgv = CollectionViewSource.GetDefaultView(_imageDisplayManager._patientGroups);
+            ICollectionView pgv = CollectionViewSource.GetDefaultView(_imageSelectionManager._patientGroups);
             pgv.CurrentChanged += pv_CurrentChanged;
-            listViewPatients.ItemsSource = _imageDisplayManager._patientGroups; // pgv;
+            listViewPatients.ItemsSource = _imageSelectionManager._patientGroups; // pgv;
 
-            listViewImages.ItemsSource = _imageDisplayManager._series;
-            ICollectionView sgv = CollectionViewSource.GetDefaultView(_imageDisplayManager._series);
+            listViewImages.ItemsSource = _imageSelectionManager._series;
+            ICollectionView sgv = CollectionViewSource.GetDefaultView(_imageSelectionManager._series);
             sgv.CurrentChanged += cv_CurrentChanged;
 
-            DicomLoaderManagerHelper.ImageStoredEvent += ImageStoredResponse_ImageStoredEvent;
-            listViewStructures.ItemsSource = _imageDisplayManager._structures;
+            listViewStructures.ItemsSource = _imageSelectionManager._structures;
 
             var testDicomDataPath = Environment.GetEnvironmentVariable("TEST_DICOM_DATA");
             if (testDicomDataPath != null)
@@ -47,17 +46,10 @@ namespace PheonixRt.Mvvm
             }
         }
 
-        void ImageStoredResponse_ImageStoredEvent(string arg1, Guid imageGuid, double repoGb)
-        {
-            // TODO: if these events are propagated through the EventAggregator they can be made on the UI thread directly
-            this.Dispatcher.Invoke(() =>            
-                this.textRepositorySize.Text = string.Format("{0,4:F} GB", repoGb));
-        }
-
         DicomImportPreprocessCoordinator _dipCoordinator =
             new DicomImportPreprocessCoordinator();
 
-        ImageSelectionManager _imageDisplayManager;
+        ImageSelectionManager _imageSelectionManager;
 
         void cv_CurrentChanged(object sender, EventArgs e)
         {
@@ -65,7 +57,7 @@ namespace PheonixRt.Mvvm
             coronal.DataContext = null;
             sagittal.DataContext = null;
 
-            ICollectionView svg = CollectionViewSource.GetDefaultView(_imageDisplayManager._series);
+            ICollectionView svg = CollectionViewSource.GetDefaultView(_imageSelectionManager._series);
             var seriesVm = (ImageSeriesViewModel)svg.CurrentItem;
             if (seriesVm == null)
                 return;
@@ -81,154 +73,153 @@ namespace PheonixRt.Mvvm
 
             transverse.DataContext = new MprImageViewModel()
             {
+                Orientation = MprGenerationContracts.Orientation.Transverse,
                 ImageVolume = ivdc,
-                Orientation = MprGenerationContracts.Orientation.Transverse
             };
 
             coronal.DataContext = new MprImageViewModel()
             {
+                Orientation = MprGenerationContracts.Orientation.Coronal,
                 ImageVolume = ivdc,
-                Orientation = MprGenerationContracts.Orientation.Coronal
             };
 
             sagittal.DataContext = new MprImageViewModel()
             {
+                Orientation = MprGenerationContracts.Orientation.Sagittal,
                 ImageVolume = ivdc,
-                Orientation = MprGenerationContracts.Orientation.Sagittal
             };
         }
 
         void pv_CurrentChanged(object sender, EventArgs e)
         {
-            ICollectionView pv = CollectionViewSource.GetDefaultView(_imageDisplayManager._patientGroups);
+            ICollectionView pv = CollectionViewSource.GetDefaultView(_imageSelectionManager._patientGroups);
             if (pv.CurrentItem == null)
                 return;
 
             var patientGroupItem = (PatientGroupViewModel)pv.CurrentItem;
 
-            _imageDisplayManager._series.Clear();
-            _imageDisplayManager._structures.Clear();
+            _imageSelectionManager._series.Clear();
+            _imageSelectionManager._structures.Clear();
 
-            Task.Run(() =>
-                {
-                    LocalImageResourceManagerClient cmsc1 =
-                        new LocalImageResourceManagerClient();
+#if UPDATE_FROM_IMAGES
+            UpdateFromImages(patientGroupItem);
+#endif
+            UpdateFromSeries(patientGroupItem);
+            UpdateStructures(patientGroupItem);
+        }
 
-                    cmsc1.ClearPrefetchStack();
+        private void UpdateFromImages(PatientGroupViewModel patientGroupItem)
+        {
+            LocalImageResourceManagerClient cmsc1 =
+                new LocalImageResourceManagerClient();
 
-                    var idcs = from guid in cmsc1.GetImageResourceIds(patientGroupItem.PatientId)
-                                select cmsc1.GetImage(guid);
-                    int count = idcs.Count();
+            var idcs = from guid in cmsc1.GetImageResourceIds(patientGroupItem.PatientId)
+                       select cmsc1.GetImage(guid);
+            var idcsList = idcs.Where(thisIdc => thisIdc != null).ToList();
 
-                    foreach (var idc in 
-                        idcs.Where(thisIdc => thisIdc != null))
-                    {
-                        var ivdc = cmsc1.GetImageVolumeBySeriesInstanceUID(idc.SeriesInstanceUID);
-                        int volumeVoxels = 0;
-                        if (ivdc != null)
-                        {
-                            volumeVoxels = (int)ivdc.PixelBuffer.ElementCount;
-                            //cmsc1.PrefetchBuffer(ivdc.PixelBuffer);
-                        }
- 
-                        Dispatcher.Invoke(() =>
-                            ImageSelectionManager.AddOrUpdate<ImageSeriesViewModel>(
-                                _imageDisplayManager._series,
-                                    s => s.SeriesInstanceUID.CompareTo(idc.SeriesInstanceUID) == 0,
-                                    s =>
-                                    {
-                                        s.InstanceCount++;
-                                        s.ResampleStatus =
-                                            (volumeVoxels > 0)
-                                                ? string.Format("Resampled ({0} voxels)", volumeVoxels)
-                                                : "<not resampled>";                                        
-                                    },
-                                    () => 
-                                    {
-                                        var isvm = ImageSeriesViewModel.Create(idc);
-                                        isvm.ResampleStatus = (volumeVoxels > 0)
-                                            ? string.Format("Resampled ({0} voxels)", volumeVoxels)
-                                            : "<not resampled>";
-                                        return isvm;
-                                    }));
-                    }
+            foreach (var idc in idcsList)
+            {
+                int volumeVoxels = 0;
 
-                    var ivdcs = from guid in cmsc1.GetImageVolumeResourceIds(patientGroupItem.PatientId)
-                               select cmsc1.GetImageVolume(guid);
-                    count = ivdcs.Count();
+                Dispatcher.Invoke(() =>
+                    ImageSelectionManager.AddOrUpdate<ImageSeriesViewModel>(
+                        _imageSelectionManager._series,
+                            s => s.SeriesInstanceUID.CompareTo(idc.SeriesInstanceUID) == 0,
+                            s =>
+                            {
+                                s.InstanceCount++;
+                                s.ResampleStatus =
+                                    (volumeVoxels > 0)
+                                        ? string.Format("Resampled ({0} voxels)", volumeVoxels)
+                                        : "<not resampled>";
+                            },
+                            () =>
+                            {
+                                var isvm = ImageSeriesViewModel.Create(idc);
+                                isvm.ResampleStatus = (volumeVoxels > 0)
+                                    ? string.Format("Resampled ({0} voxels)", volumeVoxels)
+                                    : "<not resampled>";
+                                return isvm;
+                            }));
+            }
 
-                    foreach (var ivdc in ivdcs)
-                    {
-                        //int volumeVoxels = 0;
-                        //if (ivdc != null)
-                        //{
-                        //    volumeVoxels = (int)ivdc.PixelBuffer.ElementCount;
-                            
-                        //    cmsc1.PrefetchBuffer(ivdc.PixelBuffer);
-                        //}
+            cmsc1.Close();      
+        }
 
-                        Dispatcher.Invoke(() =>
-                            ImageSelectionManager.AddOrUpdate<ImageSeriesViewModel>(
-                                _imageDisplayManager._series,
-                                    s => s.SeriesInstanceUID.CompareTo(ivdc.Identity.SeriesInstanceUID) == 0,
-                                    s =>
-                                    {
-                                        s.ResampleStatus =
-                                            (ivdc != null)
-                                                ? string.Format("Resampled ({0} slices)", ivdc.Depth)
-                                                : "<not resampled>";
-                                    },
-                                    () =>
-                                    {
-                                        var isvm = ImageSeriesViewModel.Create(ivdc);
-                                        isvm.ResampleStatus = (ivdc != null)
-                                            ? string.Format("Resampled ({0} slices)", ivdc.Depth)
-                                            : "<not resampled>";
-                                        return isvm;
-                                    }));
-                    }
+        private void UpdateFromSeries(PatientGroupViewModel patientGroupItem)
+        {
+            LocalImageResourceManagerClient cmsc1 =
+                new LocalImageResourceManagerClient();
 
-                    cmsc1.Close();
-                });
+            var ivdcs = from guid in cmsc1.GetImageVolumeResourceIds(patientGroupItem.PatientId)
+                        select cmsc1.GetImageVolume(guid);
 
-            Task.Run(() =>
-                {
-                    LocalGeometryResourceManagerClient cmsc1 =
-                        new LocalGeometryResourceManagerClient();
+            // force generation
+            var ivdcsList = ivdcs.ToList();
 
-                    var sdcs = from guid in cmsc1.GetStructureResourceIds(patientGroupItem.PatientId)
-                                select cmsc1.GetStructure(guid);
-                    int countSeries = sdcs.Count();
+            foreach (var ivdc in ivdcsList)
+            {
+                Dispatcher.Invoke(() =>
+                    ImageSelectionManager.AddOrUpdate<ImageSeriesViewModel>(
+                        _imageSelectionManager._series,
+                            s => s.SeriesInstanceUID.CompareTo(ivdc.Identity.SeriesInstanceUID) == 0,
+                            s =>
+                            {
+                                s.ResampleStatus =
+                                    (ivdc != null)
+                                        ? string.Format("Resampled ({0} slices)", ivdc.Depth)
+                                        : "<not resampled>";
+                            },
+                            () =>
+                            {
+                                var isvm = ImageSeriesViewModel.Create(ivdc);
+                                isvm.ResampleStatus = (ivdc != null)
+                                    ? string.Format("Resampled ({0} slices)", ivdc.Depth)
+                                    : "<not resampled>";
+                                return isvm;
+                            }));
+            }
 
-                    foreach (var sdc in sdcs)
-                    {
-                        var smdc = cmsc1.GetSurfaceMeshByRelatedStructureId(sdc.Id);
-                        int meshVertices = smdc != null ? (int)smdc.VertexBuffer.ElementCount : 0;
+            cmsc1.Close();
+        }
 
-                        Dispatcher.Invoke(() =>
-                            ImageSelectionManager.AddOrUpdate<StructureViewModel>(
-                                _imageDisplayManager._structures,
-                                    s => s.ROIName.CompareTo(sdc.ROIName) == 0,
-                                    s => 
-                                    { 
-                                        s.ROICount++; 
-                                        s.MeshStatus = 
-                                            (meshVertices > 0)
-                                                ? string.Format("Meshed ({0} vertices)", meshVertices)
-                                                : "<not meshed>";
-                                    },
-                                    () => new StructureViewModel(sdc.Id, sdc.ROIName) 
-                                    {
-                                        FrameOfReferenceUID = sdc.FrameOfReferenceUID,
-                                        MeshStatus = 
-                                            (meshVertices > 0)
-                                                ? string.Format("Meshed ({0} vertices)", meshVertices)
-                                                : "<not meshed>"
-                                    }));
-                    }
+        private void UpdateStructures(PatientGroupViewModel patientGroupItem)
+        {
+            LocalGeometryResourceManagerClient gmsc1 =
+                new LocalGeometryResourceManagerClient();
 
-                    cmsc1.Close();
-                });
+            var sdcs = from guid in gmsc1.GetStructureResourceIds(patientGroupItem.PatientId)
+                       select gmsc1.GetStructure(guid);
+            int countSeries = sdcs.Count();
+
+            foreach (var sdc in sdcs)
+            {
+                var smdc = gmsc1.GetSurfaceMeshByRelatedStructureId(sdc.Id);
+                int meshVertices = smdc != null ? (int)smdc.VertexBuffer.ElementCount : 0;
+
+                Dispatcher.Invoke(() =>
+                ImageSelectionManager.AddOrUpdate<StructureViewModel>(
+                            _imageSelectionManager._structures,
+                                s => s.ROIName.CompareTo(sdc.ROIName) == 0,
+                                s =>
+                                {
+                                    s.ROICount++;
+                                    s.MeshStatus =
+                                        (meshVertices > 0)
+                                            ? string.Format("Meshed ({0} vertices)", meshVertices)
+                                            : "<not meshed>";
+                                },
+                                () => new StructureViewModel(sdc.Id, sdc.ROIName)
+                                {
+                                    FrameOfReferenceUID = sdc.FrameOfReferenceUID,
+                                    MeshStatus =
+                                        (meshVertices > 0)
+                                            ? string.Format("Meshed ({0} vertices)", meshVertices)
+                                            : "<not meshed>"
+                                }));
+            }
+
+            gmsc1.Close();
         }
 
         private void Button_Click_Scan(object sender, RoutedEventArgs e)
@@ -264,6 +255,14 @@ namespace PheonixRt.Mvvm
 
             //        cmsc1.Close();
             //    });
+        }
+
+        private void Button_Click_Refresh(object sender, RoutedEventArgs e)
+        {
+            // TODO: implement refresh button
+            // pv_CurrentChanged(null, null);
+
+            _imageSelectionManager.RefreshAll();
         }
     }
 }

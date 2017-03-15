@@ -133,16 +133,7 @@ namespace LocalResourceManager
         /// <returns></returns>
         public UniformImageVolumeDataContract GetImageVolume(Guid id)
         {
-            //using (new OperationContextScope(OperationContext.Current.Channel))
-            {
-                int nHeaderIn = OperationContext.Current.IncomingMessageHeaders.FindHeader("Test", "http://tempura.org");
-                if (nHeaderIn >= 0)
-                { 
-                    var testHeader = OperationContext.Current.IncomingMessageHeaders[nHeaderIn];
-                }
-                //var header = MessageHeader.CreateHeader("StreamShared", "http://tempura.org", "0000-000000-000");
-                //OperationContext.Current.OutgoingMessageHeaders.Add(header);
-            }
+
             return _cacheImageVolumes[id];
         }
 
@@ -161,7 +152,14 @@ namespace LocalResourceManager
                 BufferRepository.CreateBuffer(ivdc.Identity.Guid, typeof(ushort), 
                 ivdc.Width * ivdc.Height * ivdc.Depth);
 
-            _cacheImageVolumes.Add(ivdc.Identity.Guid, ivdc);
+            try
+            {
+                _cacheImageVolumes.Add(ivdc.Identity.Guid, ivdc);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
 
             return ivdc;
         }

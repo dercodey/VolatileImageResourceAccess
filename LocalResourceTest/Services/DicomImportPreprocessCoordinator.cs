@@ -67,7 +67,6 @@ namespace PheonixRt.Mvvm
                 new OperationContextScope(scanManager.InnerChannel))
             {
                 var methodId = Guid.Empty; // Guid.NewGuid();
-                DicomLoaderManagerHelper.SetupResponseHeader(methodId);
 
 #if USE_ENDPOINT
                 _endpointInstance.Send<ScanDirectory>();

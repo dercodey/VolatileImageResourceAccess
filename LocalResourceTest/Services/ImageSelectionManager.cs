@@ -34,12 +34,24 @@ namespace PheonixRt.Mvvm
             structureVm.SortDescriptions.Add(new SortDescription("FrameOfReferenceUID", ListSortDirection.Ascending));
             structureVm.SortDescriptions.Add(new SortDescription("ROIName", ListSortDirection.Ascending));
 
-            DicomLoaderManagerHelper.ImageStoredEvent += ImageStoredResponse_ImageStoredEvent;
-            DicomLoaderManagerHelper.StructureStoredEvent += ImageStoredResponse_StructureStoredEvent;
+        }
 
-            MeshingManagerHelper.MeshCompleteEvent += MeshingCompleteResponse_MeshCompleteEvent;
 
-            ResampleDoneResponse.ResampleDoneEvent += ResampleDoneResponse_ResampleDoneEvent;
+        public void RefreshAll()
+        {
+            LocalImageResourceManagerClient imageResource = new LocalImageResourceManagerClient();
+            try
+            {
+                var patIds = imageResource.GetPatientIds();
+                _patientGroups.Clear();
+
+                patIds.ForEach(
+                    id => _patientGroups.Add(new PatientGroupViewModel(id)));
+            }
+            finally
+            {
+                imageResource.Close();
+            }
         }
 
         /// <summary>
@@ -94,19 +106,22 @@ namespace PheonixRt.Mvvm
             LocalGeometryResourceManagerClient geometryResource = new LocalGeometryResourceManagerClient();
             var sdc = geometryResource.GetStructure(structureGuid);
 
-            ICollectionView pgv = CollectionViewSource.GetDefaultView(_patientGroups);
-            var pgvm = (PatientGroupViewModel)pgv.CurrentItem;
-            if (pgvm != null
-                && pgvm.PatientId.CompareTo(sdc.PatientId) == 0)
+            _dispatcher.Invoke(() =>
             {
-                AddOrUpdate<StructureViewModel>(_structures,
-                    s => s.ROIName.CompareTo(sdc.ROIName) == 0,
-                    s => s.ROICount++,
-                    () => new StructureViewModel(sdc.Id, sdc.ROIName)
-                    {
-                        FrameOfReferenceUID = sdc.FrameOfReferenceUID,
-                    });
-            }
+                ICollectionView pgv = CollectionViewSource.GetDefaultView(_patientGroups);
+                var pgvm = (PatientGroupViewModel)pgv.CurrentItem;
+                if (pgvm != null
+                    && pgvm.PatientId.CompareTo(sdc.PatientId) == 0)
+                {
+                    AddOrUpdate<StructureViewModel>(_structures,
+                        s => s.ROIName.CompareTo(sdc.ROIName) == 0,
+                        s => s.ROICount++,
+                        () => new StructureViewModel(sdc.Id, sdc.ROIName)
+                        {
+                            FrameOfReferenceUID = sdc.FrameOfReferenceUID,
+                        });
+                }
+            });
 
             if (sdc.Contours.Count < 2)
                 return;
@@ -123,15 +138,18 @@ namespace PheonixRt.Mvvm
 
             if (_structures.Any(s => s.Id.CompareTo(response.StructureGuid) == 0))
             {
-                var svm = from vm in _structures
-                          where vm.Id.CompareTo(response.StructureGuid) == 0
-                          select vm;
+                _dispatcher.Invoke(() => 
+                {
+                    var svm = from vm in _structures
+                              where vm.Id.CompareTo(response.StructureGuid) == 0
+                              select vm;
 
-                var smdc = lgrm.GetSurfaceMesh(response.SurfaceMeshGuid);
-                System.Diagnostics.Trace.Assert(smdc != null);
+                    var smdc = lgrm.GetSurfaceMesh(response.SurfaceMeshGuid);
+                    System.Diagnostics.Trace.Assert(smdc != null);
 
-                svm.First().MeshStatus = string.Format("Meshed ({0} vertices)", 
-                    (int)smdc.VertexCount);
+                    svm.First().MeshStatus = string.Format("Meshed ({0} vertices)",
+                        (int)smdc.VertexCount);
+                });
             }
 
             lgrm.Close();
@@ -146,21 +164,24 @@ namespace PheonixRt.Mvvm
         {
             var lirm = new LocalImageResourceManagerClient();
 
-            // now delete the images
-            var guids = lirm.GetImageIdsBySeries(response.SeriesInstanceUID);
-            foreach (var guid in guids)
+            _dispatcher.Invoke(() =>
             {
-                lirm.RemoveImage(guid);
-            }
+                // now delete the images
+                var guids = lirm.GetImageIdsBySeries(response.SeriesInstanceUID);
+                foreach (var guid in guids)
+                {
+                    lirm.RemoveImage(guid);
+                }
 
-            if (_series.Any(s => s.SeriesInstanceUID.CompareTo(response.SeriesInstanceUID) == 0))
-            {
-                var svm = from vm in _series
-                          where vm.SeriesInstanceUID.CompareTo(response.SeriesInstanceUID) == 0
-                          select vm;
-                svm.First().ResampleStatus =
-                    string.Format("Resampled ({0} slices)", (int)guids.Count);
-            }
+                if (_series.Any(s => s.SeriesInstanceUID.CompareTo(response.SeriesInstanceUID) == 0))
+                {
+                    var svm = from vm in _series
+                              where vm.SeriesInstanceUID.CompareTo(response.SeriesInstanceUID) == 0
+                              select vm;
+                    svm.First().ResampleStatus =
+                        string.Format("Resampled ({0} slices)", (int)guids.Count);
+                }
+            });
 
             lirm.Close();
         }

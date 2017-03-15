@@ -8,6 +8,8 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{925CEE59-7592-475B-981B-F94A042403A6}</ProjectGuid>
     <OutputType>Library</OutputType>
+    <IntermediateOutputPath>$(SolutionDir)\obj\$(Configuration)\$(MSBuildProjectName)\</IntermediateOutputPath>
+    <OutputPath>$(SolutionDir)\bin\$(Configuration)\$(MSBuildProjectName)\</OutputPath>    
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>LocalResourceManager</RootNamespace>
     <AssemblyName>LocalResourceManager</AssemblyName>
@@ -35,7 +37,6 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -44,7 +45,6 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>

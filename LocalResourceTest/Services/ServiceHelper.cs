@@ -16,7 +16,6 @@ namespace PheonixRt.Mvvm.Services
     {
         public static void StartResponseHosts()
         {
-            DicomLoaderManagerHelper.StartResponseHost();
             MeshingManagerHelper.StartResponseHost();
             ResampleDoneResponse.StartResponseHost();
 

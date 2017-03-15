@@ -26,7 +26,7 @@ using Contracts.DicomLoader;
 namespace DicomLoaderManager
 {
     [ServiceBehavior(InstanceContextMode = InstanceContextMode.PerCall)]
-    public class DicomScanManager : IDicomScanManager
+    public class DicomScanManager : IDicomScanManager, IHandleMessages<ScanDirectory>
     {
         static IEndpointInstance _endpointInstance = null;
 
@@ -52,7 +52,6 @@ namespace DicomLoaderManager
 
         public void ScanDirectory(string pathname, bool rescan)
         {
-            ImageResponseClient.PrepareResponse();
             _pathname = pathname;
             _rescan = rescan;
 
@@ -69,7 +68,10 @@ namespace DicomLoaderManager
         void dfs_FileFound(Dicom.Media.DicomFileScanner scanner, Dicom.DicomFile file, string fileName)
         {
             DicomDataset ds = file.Dataset;
+
             string modality = ds.Get<string>(DicomTag.Modality);
+            // Console.WriteLine(string.Format("Found {0} {1}", modality, ds.Get<DicomUID>(DicomTag.SOPInstanceUID)));
+
             if (modality == null)
             {
                 // handle this?
@@ -81,10 +83,22 @@ namespace DicomLoaderManager
             else if (modality.CompareTo("RTPLAN") == 0)
             {
                 // process plan
+                Console.WriteLine("RTPLAN");
             }
             else if (modality.CompareTo("REG") == 0)
             {
                 // process registration
+                Console.WriteLine("REG");
+            }
+            else if (modality.CompareTo("RTRECORD") == 0)
+            {
+                // process RT RECORD
+                Console.WriteLine("RTRECORD");
+            }
+            else if (modality.CompareTo("SR") == 0)
+            {
+                // process Structured Report
+                Console.WriteLine("SR");
             }
             else
             {
@@ -188,18 +202,12 @@ namespace DicomLoaderManager
                 idc.PixelBuffer.ReleaseHandle();
                 idc.PixelBuffer.CloseMapping();
 
-                //// inform of found image
-                //ImageResponseClient proxy = ImageResponseClient.CreateProxy();
-                //proxy.OnImageStored(idc.ImageId, repoGb);
-                //proxy.Close();
-
                 // publish the image stored message
-                var imageStored = new ImageStored
+                _endpointInstance.Publish(new ImageStored
                 {
                     ImageGuid = idc.ImageId,
                     RepoGb = repoGb,
-                };
-                _endpointInstance.Publish(imageStored);
+                });
             }
         }
 
@@ -211,8 +219,6 @@ namespace DicomLoaderManager
             // store in cached resource
             LocalGeometryResourceManagerClient
                 cache1 = new LocalGeometryResourceManagerClient();
-
-            var proxy = ImageResponseClient.CreateProxy();
 
             string seriesInstanceUID = ds.Get<string>(DicomTag.SeriesInstanceUID);
             string sopInstanceUID = ds.Get<string>(DicomTag.SOPInstanceUID);
@@ -279,11 +285,14 @@ namespace DicomLoaderManager
                 sdc.Contours = polygonGuidList;
                 sdc = cache1.AddStructure(sdc);
 
-                // inform of found structure
-                proxy.OnStructureStored(sdc.Id);
+                // publish the structure stored message
+                _endpointInstance.Publish(new StructureStored
+                {
+                    StructureGuid = sdc.Id,
+                });
             }
 
-            proxy.Close();
+            //proxy.Close();
 
             cache1.Close();
 
@@ -303,9 +312,12 @@ namespace DicomLoaderManager
             if (_seriesInstanceUIDs.Count() == 0)
                 return;
 
-            // send out association complete event
-            var proxy = ImageResponseClient.CreateProxy();
-            proxy.OnAssociationClosed(_seriesInstanceUIDs.Distinct().ToArray());
+
+            _endpointInstance.Publish(new AssociationClosed()
+            {
+                SeriesInstanceUids = _seriesInstanceUIDs.Distinct().ToArray(),
+            });
+
             _seriesInstanceUIDs.Clear();
         }
 
@@ -314,9 +326,20 @@ namespace DicomLoaderManager
             scanner.FileFound -= dfs_FileFound;
             scanner.Complete -= dfs_Complete;
 
+            _endpointInstance.Publish(new AssociationClosed()
+            {
+                SeriesInstanceUids = _seriesInstanceUIDs.Distinct().ToArray(),
+            });
+
+            _seriesInstanceUIDs.Clear();
+
             // don't currently support rescanning
             System.Diagnostics.Trace.Assert(!_rescan);
         }
 
+        public Task Handle(ScanDirectory message, IMessageHandlerContext context)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

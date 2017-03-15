@@ -22,6 +22,7 @@
             <TextBox x:Name="textDirectory" Margin="10" Text="{StaticResource DicomScanDirectory}" />
             <TextBlock VerticalAlignment="Center">Repository Size:</TextBlock>
             <TextBox x:Name="textRepositorySize" IsReadOnly="True" Margin="10">0 GB</TextBox>
+            <Button Content="Refresh" Margin="10" Click="Button_Click_Refresh"/>           
             <Button Content="Clear" Margin="10" Click="Button_Click_Clear"/>
         </StackPanel>
 

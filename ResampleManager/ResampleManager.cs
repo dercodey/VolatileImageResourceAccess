@@ -26,6 +26,8 @@ namespace PheonixRt.ResampleManagerService
         /// <param name="seriesInstanceUID"></param>
         public void ResampleImageVolume(ImageVolumeResampleRequest request)
         {
+            Console.WriteLine(string.Format("Resampling volume {0}", request.SeriesInstanceUID));
+
             _responseContext =
                 OperationContext.Current.IncomingMessageHeaders.GetHeader<ResponseContext>(
                     "ResponseContext", "ServiceModelEx");
