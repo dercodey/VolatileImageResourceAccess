@@ -1,4 +1,4 @@
-# PhoenixRt.Mvvm
+# VolatileImageResourceAccess
 Example scientific/medical visualization system using SoA for complex processing and pure MVVM for display.  PheonixRt.Mvvm is split in to two exe's:
 
 * Front-end
